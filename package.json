@@ -1,7 +1,7 @@
 {
-  "name": "curso-platzi-react-avanzado",
+  "name": "atucasa",
   "version": "1.0.0",
-  "description": "Repositorio con el código del [Curso Avanzado de React de Platzi](https://platzi.com/cursos/react-avanzado/)",
+  "description": "Repositorio creado para app web atucasa kamehouse",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/midudev/curso-platzi-react-avanzado.git"
+    "url": "git+https://github.com/cristhian2121/atucasa-web.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/midudev/curso-platzi-react-avanzado/issues"
+    "url": "https://github.com/cristhian2121/atucasa-web/issues"
   },
-  "homepage": "https://github.com/midudev/curso-platzi-react-avanzado#readme",
+  "homepage": "https://github.com/cristhian2121/atucasa-web#readme",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
