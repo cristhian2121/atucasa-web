@@ -1,4 +1,4 @@
-import { ListProducts } from "./list-products";
+import { ListProducts } from "./List-Products";
 
 export {
   ListProducts
