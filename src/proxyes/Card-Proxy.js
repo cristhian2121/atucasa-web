@@ -37,13 +37,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CardProxy = ({ headers, cardMedia, cardContent }) => {
+export const CardProxy = ({ headers, cardMedia, cardContent, clickEvent }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const handleClick_ = e => {
+    clickEvent(e)
+  }
 
   return (
     <Card className={classes.root}>
@@ -83,7 +87,7 @@ export const CardProxy = ({ headers, cardMedia, cardContent }) => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton> */}
-        <ButtonAdd text="Agregar"/>
+        <ButtonAdd text="Agregar" clickEvent={handleClick_} />
       </CardActions>
       {/* Is For more description */}
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit>

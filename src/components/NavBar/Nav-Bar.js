@@ -1,4 +1,6 @@
 import React from "react";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Link } from "react-router-dom";
 
 export const NavBar = () => {
   return (
@@ -14,9 +16,9 @@ export const NavBar = () => {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-      <a className="navbar-brand" href="#">
+      <Link className="navbar-brand" to="/">
         atucasa
-      </a>
+      </Link>
 
       <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -43,10 +45,16 @@ export const NavBar = () => {
             placeholder="Buscar"
             aria-label="Search"
           />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <button
+            className="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
             Buscar
           </button>
         </form>
+        <div>
+          <ShoppingCartIcon style={{color: '#e5097f'}} />
+        </div>
       </div>
     </nav>
   );

@@ -1,9 +1,12 @@
 import React from "react";
-import "../../styles/variables.scss";
-import { Product } from "./Product";
-import { CardProxy } from "../../proxyes/Card-Proxy";
+import { connect } from "react-redux";
 
-export const ListProducts = () => {
+import "../../styles/variables.scss";
+
+import { Product } from "./Product";
+
+const ListProductsComponent = ({ productsSelected }) => {
+  console.log('productsSelected: ', productsSelected);
   const products = [1, 2, 3, 4, 5];
   const headers = {
     avatar: "KH",
@@ -38,3 +41,19 @@ export const ListProducts = () => {
     </>
   );
 };
+
+const mapStateToProps = (state) => {
+  console.log('pep');
+  return {
+    productsSelected: state.productsSelected,
+  };
+};
+
+const ListProducts = connect(
+  mapStateToProps,
+  null
+)(ListProductsComponent);
+
+export {
+  ListProducts
+}

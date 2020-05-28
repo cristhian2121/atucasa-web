@@ -1,17 +1,16 @@
 import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { ListProducts } from "./components";
 import { HomeContainer } from "./containers";
+import { NotFound } from "./components";
 
 // import './styles/main.scss'
 
-export const App = () => {
-  return (
-    <>
-      <HomeContainer />
-      {/* <GlobatStyle />
-      <ListOfCategory path="https://antoniomasia.com/que-es-eslint-y-por-que-deberias-usarlo/" />
-      <PothoCard /> */}
-    </>
-  );
-};
+export const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route exact path="/" component={HomeContainer} />
+      <Route component={NotFound} />
+    </Switch>
+  </BrowserRouter>
+);
