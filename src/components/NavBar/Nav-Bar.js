@@ -1,6 +1,7 @@
 import React from "react";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from "react-router-dom";
+import style from './style.scss';
 
 export const NavBar = () => {
   return (
@@ -52,8 +53,9 @@ export const NavBar = () => {
             Buscar
           </button>
         </form>
-        <div>
-          <ShoppingCartIcon style={{color: '#e5097f'}} />
+        <div className="d-flex">
+          <ShoppingCartIcon style={{color: '#e5097f', fontSize: '1.8rem'}} />
+          <div className={style.circle}>0</div>
         </div>
       </div>
     </nav>

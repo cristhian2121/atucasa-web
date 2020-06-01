@@ -51,7 +51,7 @@ export const CardProxy = ({ headers, cardMedia, cardContent, clickEvent }) => {
 
   return (
     <Card className={classes.root}>
-      <CardHeader
+      {/* <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             {headers.avatar}
@@ -64,7 +64,7 @@ export const CardProxy = ({ headers, cardMedia, cardContent, clickEvent }) => {
         }
         title={headers.title}
         subheader={headers.subheader}
-      />
+      /> */}
       <CardMedia
         className={classes.media}
         image={cardMedia.image}
