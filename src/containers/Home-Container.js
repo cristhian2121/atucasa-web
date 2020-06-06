@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 
-import { ListProducts, NavBar, CategoryBar } from "../components";
+import { ListProducts, NavBar, CategoryBar, SaleList } from "../components";
 
 export class HomeContainer extends PureComponent {
   render() {
@@ -12,6 +12,7 @@ export class HomeContainer extends PureComponent {
             <CategoryBar />
           </div>
           <div className="col-md-9">
+            <SaleList /><br />
             <ListProducts />
           </div>
         </div>
