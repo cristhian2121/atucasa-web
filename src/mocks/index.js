@@ -1,0 +1,3 @@
+import { FORM_EMAIL, FORM_MAX, FORM_MIN, FORM_REQUIRED } from "./validations";
+
+export { FORM_EMAIL, FORM_MAX, FORM_MIN, FORM_REQUIRED };
