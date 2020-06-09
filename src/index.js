@@ -7,11 +7,7 @@ import { createStore } from "redux"
 import { App } from "./app";
 import reducer from './reducers'
 
-const initialState = {
-  productsSelected: [2]
-}
-
-const store = createStore(reducer, initialState)
+const store = createStore(reducer, {})
 
 const AppMaterial = () => (
   <Provider store={store}>

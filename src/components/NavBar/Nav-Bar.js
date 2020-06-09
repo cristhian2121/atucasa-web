@@ -1,9 +1,21 @@
 import React from "react";
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { Link } from "react-router-dom";
-import style from './style.scss';
+import { connect } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 
-export const NavBar = () => {
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import style from "./style.scss";
+
+export const NavBarComponent = ({ productsSelected }) => {
+  console.log("productsSelected: ", productsSelected);
+  let history = useHistory();
+
+  const redirectToShop = () => {
+    if (productsSelected.length) {
+      history.push("/shopping");
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <button
@@ -28,16 +40,20 @@ export const NavBar = () => {
               Productos <span className="sr-only">(current)</span>
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Mis pedidos
-            </a>
-          </li>
-          <li className="nav-item">
+          {productsSelected.length ? (
+            <li className="nav-item">
+              <Link className="nav-link" to="/shopping">
+                Mis pedidos
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+          {/* <li className="nav-item">
             <a className="nav-link disabled" href="#">
               Disabled
             </a>
-          </li>
+          </li> */}
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <input
@@ -53,11 +69,21 @@ export const NavBar = () => {
             Buscar
           </button>
         </form>
-        <div className="d-flex">
-          <ShoppingCartIcon style={{color: '#e5097f', fontSize: '1.8rem'}} />
-          <div className={style.circle}>0</div>
+        <div className="d-flex align-items-center mx-2">
+          <div>Mi cuenta</div>
+          <AccountCircleOutlinedIcon style={{ fontSize: "1.8rem" }} />
+        </div>
+        <div className="d-flex" onClick={redirectToShop}>
+          <ShoppingCartIcon style={{ color: "#e5097f", fontSize: "1.8rem" }} />
+          <div className={style.circle}>{productsSelected.length}</div>
         </div>
       </div>
     </nav>
   );
 };
+
+const mapStateToProps = (reducers) => {
+  return reducers.productReducer;
+};
+
+export const NavBar = connect(mapStateToProps, null)(NavBarComponent);

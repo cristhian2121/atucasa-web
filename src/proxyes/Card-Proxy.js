@@ -11,6 +11,8 @@ import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { ButtonAdd } from "./Button-add";
 
+// import { FlooterCard } from "../components/Products/Product";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -37,17 +39,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CardProxy = ({ headers, cardMedia, cardContent, clickEvent }) => {
+export const CardProxy = ({
+  headers,
+  cardMedia,
+  cardContent,
+  clickEvent,
+  selected,
+  FlooterCard
+}) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  selected;
+  console.log("selected: ", selected);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleClick_ = e => {
-    clickEvent(e)
-  }
+  const handleClick_ = (e, id) => {
+    clickEvent(e, id);
+  };
+
+  const handleUnClick_ = (e, id) => {
+    unClickEvent(e, id);
+  };
 
   return (
     <Card className={classes.root}>
@@ -87,7 +101,12 @@ export const CardProxy = ({ headers, cardMedia, cardContent, clickEvent }) => {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton> */}
-        <ButtonAdd text="Agregar" clickEvent={handleClick_} />
+        {selected ? (
+          <ButtonAdd text="Menos" clickEvent={(e) => handleUnClick_(e, id)} />
+        ) : (
+          // <ButtonAdd text="Agregar" clickEvent={handleClick_} />
+          FlooterCard
+        )}
       </CardActions>
       {/* Is For more description */}
       {/* <Collapse in={expanded} timeout="auto" unmountOnExit>

@@ -1,3 +1,4 @@
 import { CardProxy } from "./Card-Proxy";
+import { ButtonAdd, ButtonLess, ButtonPluss } from "./Button-add";
 
-export { CardProxy };
+export { CardProxy, ButtonAdd, ButtonLess, ButtonPluss };

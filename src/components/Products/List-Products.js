@@ -5,8 +5,10 @@ import "../../styles/variables.scss";
 
 import { Product } from "./Product";
 
+// Mock
+import { productMock } from "../../mocks/product";
+
 const ListProductsComponent = ({ productsSelected }) => {
-  console.log('productsSelected: ', productsSelected);
   const products = [1, 2, 3, 4, 5];
   const headers = {
     avatar: "KH",
@@ -24,15 +26,22 @@ const ListProductsComponent = ({ productsSelected }) => {
   const cardContent = {
     description: "Goku is foumous person of goku's universe",
   };
+
+  const validateSelected = (id) => !!productsSelected.find((_) => _ == id);
+
   return (
     <>
       <div className="col-12 px-0 d-flex flex-wrap">
-        {products.map((product) => (
-          <div className="col-lg-3 col-md-4 col-sm-6 col-12 py-2" key={product}>
+        {productMock.map((product) => (
+          <div
+            className="col-lg-3 col-md-4 col-sm-6 col-12 py-2"
+            key={product.id}
+          >
             <Product
-              headers={headers}
-              cardMedia={cardMedia}
-              cardContent={cardContent}
+              headers={product}
+              cardMedia={product}
+              cardContent={product}
+              selected={validateSelected(product.id)}
             />
           </div>
         ))}
@@ -42,18 +51,10 @@ const ListProductsComponent = ({ productsSelected }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log('pep');
-  return {
-    productsSelected: state.productsSelected,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.productReducer;
 };
 
-const ListProducts = connect(
-  mapStateToProps,
-  null
-)(ListProductsComponent);
+const ListProducts = connect(mapStateToProps, null)(ListProductsComponent);
 
-export {
-  ListProducts
-}
+export { ListProducts };
