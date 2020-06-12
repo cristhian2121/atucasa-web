@@ -40,9 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CardProxy = ({
-  headers,
-  cardMedia,
-  cardContent,
+  product,
   clickEvent,
   selected,
   FlooterCard
@@ -50,7 +48,6 @@ export const CardProxy = ({
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   selected;
-  console.log("selected: ", selected);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -81,12 +78,12 @@ export const CardProxy = ({
       /> */}
       <CardMedia
         className={classes.media}
-        image={cardMedia.image}
-        title={cardMedia.title}
+        image={product.image}
+        title={product.title}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          <span className="ppe">{cardContent.description}</span>
+          <span className="ppe">{product.description}</span>
         </Typography>
       </CardContent>
 

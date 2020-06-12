@@ -40,14 +40,19 @@ export const ButtonAdd = ({ text, clickEvent }) => {
   );
 };
 
-export const ButtonPluss = () => {
+export const ButtonPluss = ({ _handleClick }) => {
   const useStyles = makeStyles((theme) => ({
-    button: {},
+    button: {
+      margin: theme.spacing(0),
+      padding: theme.spacing(-1),
+      maxWidth: "65px",
+      minWidth: "40px",
+    },
   }));
 
   let classes = useStyles();
 
-  const handleClick = () => {};
+  const handleClick = (event) => _handleClick(event);
 
   return (
     <Button
@@ -55,23 +60,26 @@ export const ButtonPluss = () => {
         root: classes.button,
       }}
       size="small"
-      onClick={handleClick}
+      onClick={(event) => handleClick(event)}
     >
       <KeyboardArrowUpIcon />
     </Button>
   );
 };
 
-export const ButtonLess = () => {
+export const ButtonLess = ({ _handleClick }) => {
   const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(0),
+      padding: theme.spacing(-1),
+      maxWidth: "65px",
+      minWidth: "40px",
     },
   }));
 
   let classes = useStyles();
 
-  const handleClick = () => {};
+  const handleClick = (event) => _handleClick(event);
 
   return (
     <Button
@@ -79,7 +87,7 @@ export const ButtonLess = () => {
       classes={{
         root: classes.button,
       }}
-      onClick={handleClick}
+      onClick={(event) => handleClick(event)}
     >
       <KeyboardArrowDownIcon />
     </Button>

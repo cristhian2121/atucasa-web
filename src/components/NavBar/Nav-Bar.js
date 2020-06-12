@@ -7,7 +7,6 @@ import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined"
 import style from "./style.scss";
 
 export const NavBarComponent = ({ productsSelected }) => {
-  console.log("productsSelected: ", productsSelected);
   let history = useHistory();
 
   const redirectToShop = () => {

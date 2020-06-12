@@ -1,23 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
-import { addProductToCar } from "../../actions";
 
-import { CardProxy, Butt, ButtonLess, ButtonPluss } from "../../proxyes";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import { FlooterCard } from "./Flooter-Product";
+import { CardProxy } from "../../proxyes";
 
-export const FlooterCard = ({ quantity }) => (
-  <div className="col-12 px-0 d-flex">
-    <div>{quantity}</div>
-    <ButtonPluss variant="outlined">
-    </ButtonPluss>
-    <ButtonLess variant="outlined">
-    </ButtonLess>
-  </div>
-);
-
-const ProductComponent = (props) => {
-  const { headers, cardMedia, cardContent, selected } = props;
+export const Product = (props) => {
+  const { product, selected } = props;
+  const quantityProduct = product && product.number ? product.number : 0;
   const _handleClick = (event, id) => {
     props.addProductToCar(id);
   };
@@ -25,21 +13,14 @@ const ProductComponent = (props) => {
   return (
     <>
       <CardProxy
-        headers={headers}
-        cardMedia={cardMedia}
-        cardContent={cardContent}
+        product={product}
         clickEvent={_handleClick}
         unClickEvent={_handleUnClick}
         selected={selected}
-        FlooterCard={FlooterCard({ quantity: 0 })}
+        FlooterCard={
+          <FlooterCard quantity={quantityProduct} product={product} />
+        }
       />
     </>
   );
 };
-
-const mapDispatchToProps = {
-  addProductToCar,
-};
-
-const Product = connect(null, mapDispatchToProps)(ProductComponent);
-export { Product };
