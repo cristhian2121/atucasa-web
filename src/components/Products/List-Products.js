@@ -38,9 +38,7 @@ const ListProductsComponent = ({ productsSelected }) => {
             key={product.id}
           >
             <Product
-              headers={product}
-              cardMedia={product}
-              cardContent={product}
+              product={product}
               selected={validateSelected(product.id)}
             />
           </div>
