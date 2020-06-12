@@ -56,12 +56,12 @@ export const CreateProduct = () => {
 
     try {
       let response = await SaveProductService(data)
-      console.log('response: ', response);
+      clearForm()
     } catch (e) { console.log('error create product', e) }
   };
   
   
-  const handleCancel = (event) => {
+  const clearForm = (event) => {
     setName("")
     setPrice("")
     setCategory([1])
@@ -82,6 +82,10 @@ export const CreateProduct = () => {
         data[item.name] = item.value;
       }
     }
+    data['category_product'] = [data['category_product']]
+    data['discount_porcentual'] = !data['discount_porcentual'] && 0
+    data['store'] = 1
+    
     return data
   };
 
@@ -216,7 +220,7 @@ export const CreateProduct = () => {
               ))}
             </SelectValidator>
             <Button type="submit" disabled={isSending}>Guardar</Button>
-            <Button onClick={handleCancel}>Cancelar</Button>
+            <Button onClick={clearForm}>Cancelar</Button>
           </ValidatorForm>
         </div>
 
