@@ -1,8 +1,9 @@
 import React from 'react';
+import './style.scss'
 
 export const SaleList = () => {
 
   return(
-    <div>Super descuentos</div>
+    <div id="pepe">Super descuentos</div>
   )
 }

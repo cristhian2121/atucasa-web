@@ -1,20 +1,20 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   output: {
     filename: "app.bundle.js",
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: "src/index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: true ? "[name].css" : "[name].[hash].css",
-      chunkFilename: true ? "[id].css" : "[id].[hash].css",
+      // filename: true ? "[name].css" : "[name].[hash].css",
+      // chunkFilename: true ? "[id].css" : "[id].[hash].css",
       // filename: devMode ? "[name].css" : "[name].[hash].css",
       // chunkFilename: devMode ? "[id].css" : "[id].[hash].css",
     }),
@@ -33,21 +33,13 @@ module.exports = {
         },
       }, //rule Sass
       {
-        test: /\.(scss|sass|css)$/,
+        test: /\.css$/,
         exclude: /node_modules/,
-        loaders: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-              sourceMap: true,
-              importLoaders: 1,
-              localIdentName: "[local]___[hash:base64:5]",
-            },
-          },
-          "sass-loader",
-        ],
+        loaders: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        loader: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
   },
