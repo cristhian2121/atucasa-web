@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
-import style from "./style.scss";
+import "./style.scss";
 
 export const NavBarComponent = ({ productsSelected }) => {
   let history = useHistory();
@@ -74,7 +74,7 @@ export const NavBarComponent = ({ productsSelected }) => {
         </div>
         <div className="d-flex" onClick={redirectToShop}>
           <ShoppingCartIcon style={{ color: "#e5097f", fontSize: "1.8rem" }} />
-          <div className={style.circle}>{productsSelected.length}</div>
+          <div className='circle'>{productsSelected.length}</div>
         </div>
       </div>
     </nav>
