@@ -4,5 +4,6 @@ import { NotFound } from "./NotFound/NotFound";
 import { CategoryBar } from "./Category/Category-Bar";
 import { SaleList } from "./Products/Sale-List";
 import { CreateProduct } from "./Products/Create-Product";
+import { Login } from "./Login/Login";
 
-export { ListProducts, NavBar, NotFound, CategoryBar, SaleList, CreateProduct };
+export { ListProducts, NavBar, NotFound, CategoryBar, SaleList, CreateProduct, Login };
