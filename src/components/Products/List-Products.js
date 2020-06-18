@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import "../../styles/variables.scss";
 
 import { Product } from "./Product";
 
+import { GetProductService, GetProductStoreService } from "./../../services/Products-Service"
+
 // Mock
 import { productMock } from "../../mocks/product";
 
 const ListProductsComponent = ({ productsSelected }) => {
+  const storeCurrent = window.localStorage ? window.localStorage.getItem("store") : null
+  const [productList, setProductList] = useState([])
   const products = [1, 2, 3, 4, 5];
   const headers = {
     avatar: "KH",
@@ -16,6 +20,18 @@ const ListProductsComponent = ({ productsSelected }) => {
     title: "ply with Goku",
     subheader: "Figure in proportion 1x1",
   };
+
+  useEffect (() => {
+      getProducts()
+  },[]);
+  const getProducts = async () => {
+    try {
+      // Request of products for client or user autenticate
+      let response = storeCurrent ? await GetProductStoreService(storeCurrent) : await GetProductService()
+      let resp = response.data
+      setProductList(resp)
+    } catch (e) { console.log('error create product', e) }
+  };  
 
   const cardMedia = {
     image:
@@ -32,7 +48,7 @@ const ListProductsComponent = ({ productsSelected }) => {
   return (
     <>
       <div className="col-12 px-0 d-flex flex-wrap">
-        {productMock.map((product) => (
+        {productList.map((product) => (
           <div
             className="col-lg-3 col-md-4 col-sm-6 col-12 py-2"
             key={product.id}
