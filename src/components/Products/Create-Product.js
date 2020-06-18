@@ -192,7 +192,7 @@ export const CreateProduct = () => {
             />
             <br />
             <SelectValidator
-              label="Categoria"
+              label="Categoría"
               onChange={(e) => setCategory(e.target.value)}
               name="category_product"
               value={category}
