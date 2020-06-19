@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import "../../styles/variables.scss";
 
-import { Product } from "./Product";
+import { Product, Pepe } from "./Product";
 
 // Mock
 import { productMock } from "../../mocks/product";
@@ -37,7 +37,7 @@ const ListProductsComponent = ({ productsSelected }) => {
             className="col-lg-3 col-md-4 col-sm-6 col-12 py-2"
             key={product.id}
           >
-            <Product
+            <Pepe
               product={product}
               selected={validateSelected(product.id)}
             />
