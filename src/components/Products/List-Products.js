@@ -25,6 +25,7 @@ const ListProductsComponent = ({ productsSelected }) => {
   useEffect (() => {
       getProducts()
   },[]);
+
   const getProducts = async () => {
     try {
       // Request of products for client or user autenticate
@@ -33,16 +34,6 @@ const ListProductsComponent = ({ productsSelected }) => {
       console.log('resp: ', resp);
       setProductList(resp)
     } catch (e) { console.log('error create product', e) }
-  };  
-
-  const cardMedia = {
-    image:
-      "https://media.metrolatam.com/2018/10/25/goku-7863ead337591e85e23ea48a65296821-900x600.jpg",
-    title: "Goku",
-  };
-
-  const cardContent = {
-    description: "Goku is foumous person of goku's universe",
   };
 
   const validateSelected = (id) => !!productsSelected.find((_) => _ == id);
