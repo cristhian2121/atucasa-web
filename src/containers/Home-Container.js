@@ -186,7 +186,7 @@ export class HomeContainer extends PureComponent {
   render() {
     return (
       <>
-        <Nav />
+        <NavBar />
         <div className="col-12 px-0 d-flex flex-wrap pt-2">
           <div className="col-md-3 col-sm-12">
             <CategoryBar />
