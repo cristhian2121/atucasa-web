@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   ValidatorForm,
   TextValidator,
@@ -7,7 +7,7 @@ import {
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { SaveProductService } from "../../services/Products-Service"
+import { SaveProductService, getCategoryProductsService } from "../../services/Products-Service"
 
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
 
@@ -16,7 +16,7 @@ export const CreateProduct = () => {
   const [isSending, setIsSending] = useState(false);
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState([1]);
+  const [category, setCategory] = useState([]);
   const [branch, setBranch] = useState("");
   const [description, setDescription] = useState("");
   const [presentation, setPresentation] = useState("");
@@ -25,17 +25,12 @@ export const CreateProduct = () => {
   const [discountPorcentual, setDiscountPorcentual] = useState("");
   const [image, setImage] = useState("");
   const form = useRef("");
+  const [categories, setCategories] = useState([])
 
-  const categories = [
-    {
-      id: 1,
-      name: "Aseo",
-    },
-    {
-      id: 2,
-      name: "Lacteos",
-    },
-  ];
+  useEffect (() => {
+    /* Method mounted in functions */
+    getCategoryProducts()
+  },[category]);
 
   const branches = [
     {
@@ -59,8 +54,15 @@ export const CreateProduct = () => {
       clearForm()
     } catch (e) { console.log('error create product', e) }
   };
-  
-  
+  const getCategoryProducts = async () => {
+    try {
+      let response = await getCategoryProductsService()
+      let resp = response.data
+      console.log('resp: ', resp);
+      // upload options categories in variable
+      setCategories(resp)
+    } catch (e) { console.log('error create product', e) }
+  };  
   const clearForm = (event) => {
     setName("")
     setPrice("")
@@ -190,7 +192,7 @@ export const CreateProduct = () => {
             />
             <br />
             <SelectValidator
-              label="Categoria"
+              label="Categoría"
               onChange={(e) => setCategory(e.target.value)}
               name="category_product"
               value={category}
@@ -204,7 +206,7 @@ export const CreateProduct = () => {
                 </MenuItem>
               ))}
             </SelectValidator>
-            <SelectValidator
+            {/* <SelectValidator
               label="Sede disponible"
               onChange={(e) => setBranch(e.target.value)}
               name="branch"
@@ -214,11 +216,11 @@ export const CreateProduct = () => {
               className="col-md-6"
             >
               {branches.map((item) => (
-                <MenuItem key={item.id} value={item.id}>
+                <MenuItem  key={item.id} value={item.id}>
                   {item.name}
                 </MenuItem>
               ))}
-            </SelectValidator>
+            </SelectValidator> */}
             <Button type="submit" disabled={isSending}>Guardar</Button>
             <Button onClick={clearForm}>Cancelar</Button>
           </ValidatorForm>
