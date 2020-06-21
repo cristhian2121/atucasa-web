@@ -31,7 +31,7 @@ export const ExpansionPanelProxy = ({ items }) => {
       return {
         border: "1px outset",
         boxShadow: "1px 1px 2px",
-        background: 'rgb(229, 9, 127, .1)'
+        background: 'rgb(226, 224, 115 )'
       };
     }
   };
