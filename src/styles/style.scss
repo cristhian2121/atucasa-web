@@ -642,10 +642,10 @@ ul.nav.tabs {
 	margin-right:6px;
 }
 .mid-2 {
-    padding: 1em 0;
+    padding: 0.2em 0;
 }
 .mid-1 {
-    padding: 3em 0 0;
+    padding: 1em 0 0;
 }
 .block {
     float: right;
@@ -702,9 +702,9 @@ div#my-cart-empty-message {
 .my-cart-b {
     background: none;
     text-decoration: none;
-    color: #029241;
+    color: #0240DA;
     font-size: 1em;
-    border: 2px solid #039445;
+    border: 2px solid #114FE9;
     border-radius: 50px;
     padding: 0.5em 1em;
     outline: none;
@@ -739,7 +739,7 @@ a:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #039445;
+  background: #114FE9;
   -webkit-transform: scaleY(0);
   transform: scaleY(0);
   -webkit-transform-origin: 50% 0;
@@ -751,12 +751,12 @@ a:focus {
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
     border-radius: 50px;
-	border: 2px solid #039445;
+	border: 2px solid #114FE9;
 }
 .my-cart-b:hover, .my-cart-b:focus, .my-cart-b:active {
 	color: white;
     background: none;
-    border: 2px solid #039445;
+    border: 2px solid #114FE9;
     outline: none !important;
 }
 .my-cart-b:hover:before, .my-cart-b:focus:before, .my-cart-b:active:before {
@@ -830,7 +830,7 @@ p.quick_desc {
   bottom: 0;
   left: 0;
   right: 0;
-  background:#029241;
+  background:#114FE9;
   -webkit-transform: scaleY(1);
   transform: scaleY(1);
   -webkit-transform-origin: 50%;
