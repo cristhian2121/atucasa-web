@@ -12,3 +12,6 @@ export const GetProductStoreService = (idStore) => apiBussines.get(`/product/?st
 
 /* request get categories product */
 export const getCategoryProductsService = () => apiBussines.get(`/category_product/`)
+
+/* request delete products */
+export const deleteProductService = (idProduct) => apiBussines.delete(`/product/${idProduct}`)

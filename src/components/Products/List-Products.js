@@ -5,7 +5,7 @@ import "../../styles/variables.scss";
 
 import { Product, IndividualProduct } from "./Product";
 
-import { GetProductService, GetProductStoreService } from "./../../services/Products-Service"
+import { GetProductService, GetProductStoreService, deleteProductService } from "./../../services/Products-Service"
 
 // Mock
 import { productMock } from "../../mocks/product";
@@ -33,7 +33,32 @@ const ListProductsComponent = ({ productsSelected }) => {
       let resp = response.data
       console.log('resp: ', resp);
       setProductList(resp)
-    } catch (e) { console.log('error create product', e) }
+    } catch (e) { console.log('error create product: ', e) }
+  };  
+  const deleteProduct = async (id) => {
+    /* Request for deleting product, this is enable for client */
+    if (storeCurrent) {
+      try {
+        let response = await deleteProductService(id)
+        removeProduct(id)
+      }catch (e) { console.log('error delete product: ', e) }
+    } else console.log('No cuenta con los permisos suficientes')
+  
+  }
+  const removeProduct = (id) => {
+    /* Method for remove product id DOM */
+    let products = productList.filter(item => item.id != id)
+    setProductList(products)
+  }
+
+  const cardMedia = {
+    image:
+      "https://media.metrolatam.com/2018/10/25/goku-7863ead337591e85e23ea48a65296821-900x600.jpg",
+    title: "Goku",
+  };
+
+  const cardContent = {
+    description: "Goku is foumous person of goku's universe",
   };
 
   const validateSelected = (id) => !!productsSelected.find((_) => _ == id);
@@ -48,6 +73,7 @@ const ListProductsComponent = ({ productsSelected }) => {
             <Product
               product={product}
               selected={validateSelected(product.id)}
+              deleteProduct={deleteProduct}
             />
           </div>
         ))}
