@@ -10,6 +10,9 @@ export const Product = (props) => {
     props.addProductToCar(id);
   };
   const _handleUnClick = (event, id) => props.removeProduct(id);
+
+  const handleDeleteProduct = (id) => props.deleteProduct(id)
+
   return (
     <>
       <CardProxy
@@ -18,7 +21,7 @@ export const Product = (props) => {
         unClickEvent={_handleUnClick}
         selected={selected}
         FlooterCard={
-          <FlooterCard quantity={quantityProduct} product={product} />
+          <FlooterCard quantity={quantityProduct} product={product} deleteProduct={handleDeleteProduct}/>
         }
       />
     </>

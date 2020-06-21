@@ -5,7 +5,7 @@ import "../../styles/variables.scss";
 
 import { Product } from "./Product";
 
-import { GetProductService, GetProductStoreService } from "./../../services/Products-Service"
+import { GetProductService, GetProductStoreService, deleteProductService } from "./../../services/Products-Service"
 
 // Mock
 import { productMock } from "../../mocks/product";
@@ -30,8 +30,23 @@ const ListProductsComponent = ({ productsSelected }) => {
       let response = storeCurrent ? await GetProductStoreService(storeCurrent) : await GetProductService()
       let resp = response.data
       setProductList(resp)
-    } catch (e) { console.log('error create product', e) }
+    } catch (e) { console.log('error create product: ', e) }
   };  
+  const deleteProduct = async (id) => {
+    /* Request for deleting product, this is enable for client */
+    if (storeCurrent) {
+      try {
+        let response = await deleteProductService(id)
+        removeProduct(id)
+      }catch (e) { console.log('error delete product: ', e) }
+    } else console.log('No cuenta con los permisos suficientes')
+  
+  }
+  const removeProduct = (id) => {
+    /* Method for remove product id DOM */
+    let products = productList.filter(item => item.id != id)
+    setProductList(products)
+  }
 
   const cardMedia = {
     image:
@@ -56,6 +71,7 @@ const ListProductsComponent = ({ productsSelected }) => {
             <Product
               product={product}
               selected={validateSelected(product.id)}
+              deleteProduct={deleteProduct}
             />
           </div>
         ))}

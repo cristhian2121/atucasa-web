@@ -12,7 +12,7 @@ import { Login } from "./components/Login/Login"
 export const App = () => (
   <HashRouter>
     <Switch>
-      <Route exact path="/home/" component={HomeContainer} />
+      <Route exact path="/" component={HomeContainer} />
       <Route exact path="/login/" component={Login} />
       <Route exact path="/product/create/" component={CreateProduct} />
       <Route component={NotFound} />
