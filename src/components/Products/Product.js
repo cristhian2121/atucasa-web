@@ -20,7 +20,7 @@ const ProductComponent = (props) => {
     <div className="">
       <div className="">
         <a href="#" data-toggle="modal" data-target="#myModal4" className="">
-          <img src={product.url_image} height="120px" width="80%" alt="" />
+          <img src={product.url_image} height="130px" width="95%" alt="" />
           <div className="offer">
             <p>
               <span>Oferta</span>
