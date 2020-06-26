@@ -4,15 +4,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+import {
+  ValidatorForm,
+  TextValidator,
+} from "react-material-ui-form-validator";
+import { FORM_REQUIRED, FORM_MAX } from "../../mocks"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import { useSnackbar } from 'notistack';
 import { LoginService } from "./../../services/auth/auth-service";
 import { useHistory } from "react-router-dom";
 // import Copyright from '../../components/common/copyright'
@@ -39,31 +46,25 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Login = () => {
-
-  return (
-    <SnackbarProvider maxSnack={3}>
-      <IntegrationNotistack />
-    </SnackbarProvider>
-  );
-}
-
-function IntegrationNotistack() {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false)
   let history = useHistory();
+  const form = useRef("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const login = async (event) => {
-    event.preventDefault()
+    // event.preventDefault()
     let data = generateData()
-    console.log('data: ', data);
 
     let response = await LoginService(data)
-    console.log('response: ', response);
 
-    if (response) {
-      enqueueSnackbar(response['detail'], { variant: 'error' })
-    } else history.push('/home/')
+    if (response) enqueueSnackbar(response['detail'], { variant: 'error' })
+    else {
+      // history.push('/home/')
+      location.reload()
+    }
   }
 
   const generateData = () => {
@@ -75,43 +76,49 @@ function IntegrationNotistack() {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        {/* <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar> */}
-        <Typography component="h1" variant="h5">
+    <div>
+      <div className="">
+        {/* <Typography component="h1" variant="h5">
           <img src={""} className="image-logo-pdf" />
-        </Typography>
+        </Typography> */}
         <Typography component="h1" variant="h5">
           Ingresa tus credenciales
         </Typography>
-        <form id="loginForm" className={classes.form} noValidate>
-          <TextField
+        <ValidatorForm
+          id="loginForm"
+          ref={form}
+          onSubmit={login}
+          onError={(errors) => console.log('errors', errors)}
+          className={classes.form}
+        >
+          <TextValidator
+            fullWidth
             variant="outlined"
             margin="normal"
-            required
-            fullWidth
             id="username"
-            label="Correo electrónico"
             name="username"
-            autoComplete="username"
+            label="Correo electrónico"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            // autoComplete="username"
             autoFocus
+            validators={["required", "maxStringLength:50"]}
+            errorMessages={[FORM_REQUIRED, `${FORM_MAX} 50`]}
             onKeyPress={(event) => {
               (event.key === "Enter") && login(event)
             }}
           />
-          <TextField
+          <TextValidator
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             name="password"
             label="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type={showPassword ? "text" : "password"}
             id="password"
-            autoComplete="current-password"
+            // autoComplete="current-password"
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -127,6 +134,8 @@ function IntegrationNotistack() {
             onKeyPress={(event) => {
               (event.key === "Enter") && login(event)
             }}
+            validators={["required", "maxStringLength:50"]}
+            errorMessages={[FORM_REQUIRED, `${FORM_MAX} 50`]}
           />
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -138,15 +147,29 @@ function IntegrationNotistack() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={login}
+            // onClick={login}
           >
             Ingresar
           </Button>
-        </form>
+        </ValidatorForm>
+        <div>
+          <ul className="card">
+            <li>
+              <div>
+                <ArrowForwardIcon color="secondary"/> Registrate
+              </div>
+            </li>
+            <li>
+              <div>
+                ¿Olvidaste tu contraseña?
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
       {/* <Box mt={8}>
         <Copyright />
       </Box> */}
-    </Container>
+    </div>
   );
 }
