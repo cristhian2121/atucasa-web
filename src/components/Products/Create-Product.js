@@ -11,6 +11,8 @@ import { SaveProductService, getCategoryProductsService } from "../../services/P
 
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
 
+import pepe from '../../statics/sh.jpg'
+
 export const CreateProduct = () => {
   // const [email, setEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -94,6 +96,14 @@ export const CreateProduct = () => {
   return (
     <>
       <div>Agrega tu producto</div>
+      <div class="banner-top">
+        <img src={pepe} width="100%" height="200px" />
+        <div class="container">
+          <h3 >Codes</h3>
+          <h4><a href="index.html">Home</a><label>/</label>Codes</h4>
+          <div class="clearfix"> </div>
+        </div>
+      </div>
       <div className="col-12 d-flex">
         {/* <div className="col-md-2"></div> */}
 
@@ -102,7 +112,6 @@ export const CreateProduct = () => {
             id="productsForm"
             ref={form}
             onSubmit={handleSubmit}
-            onError={(errors) => console.log('errors', errors)}
             className="col-12"
           >
             <TextValidator
