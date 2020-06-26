@@ -89,6 +89,10 @@ img {
 svg:not(:root) {
   overflow: hidden;
 }
+svg {
+  overflow: hidden;
+  vertical-align: text-top !important;
+}
 figure {
   margin: 1em 40px;
 }
@@ -3012,7 +3016,7 @@ input[type="button"].btn-block {
   top: 100%;
   left: 0;
   z-index: 1000;
-  display: none;
+  display: block !important;
   float: left;
   min-width: 160px;
   padding: 5px 0;
@@ -3034,7 +3038,7 @@ input[type="button"].btn-block {
 .dropdown-menu .divider {
   height: 1px;
   margin: 9px 0;
-  overflow: hidden;
+  // overflow: hidden;
   background-color: #e5e5e5;
 }
 .dropdown-menu > li > a {

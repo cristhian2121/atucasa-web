@@ -41,6 +41,17 @@ module.exports = {
         test: /\.scss$/,
         loader: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
+      {
+        test: /\.(jpg|png|gif|woff|eot|ttf|svg)/,
+         use: {
+             loader: 'file-loader', // this need file-loader
+             options: {
+                 limit: 50000,
+                 outputPath: './src/statics/' 
+
+             }
+         }
+    }
     ],
   },
 };
