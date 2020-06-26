@@ -1,3 +1,6 @@
+h1.MuiTypography-root.MuiTypography-h5 {
+    color: #999999;
+}
 /*--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -210,13 +213,25 @@ img.img-head {
 .head-t {
     margin: 1em 0;
 }
+/* Styles for nav bar h*/
+.nav-bar-items {
+    display: flex;
+    justify-content: flex-end;
+}
+.card {
+    display: contents !important;
+    align-items: left;
+}
 .card li{
-	display:inline-block;
+    display:inline-block;
+    color: #999;
+    font-size: 1em;
+    margin:0 0.5em;
 }
 .card li a{
 	display:inline-block;
 	color: #999;
-    font-size: 0.9em;
+ font-size: 0.9em;
 	margin:0 0.5em;
 }
 .card li a i{
@@ -400,8 +415,8 @@ ul.multi-column-dropdown h6 {
 }
 
 .dropdown-menu.multi {
-    min-width: 745px;
-    padding: 30px 30px;
+    min-width: 290px;
+    padding: 20px 20px;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background: none;
@@ -478,7 +493,7 @@ span.fa.fa-shopping-cart.my-cart-icon {
 /*-- //header --*/
 /*--banner--*/
 .banner-info {
-    margin:8em 0;
+    margin:0em 0;
 	text-align:center;
 }
 .banner-info h3 {
@@ -488,27 +503,31 @@ span.fa.fa-shopping-cart.my-cart-icon {
     margin: 0 auto 1em;
 }
 .search-form {
-    width: 55%;
-    margin: 0 auto;
+    // width: 55%;
+    margin: 0 0;
 }
-.search-form input[type='text']{
+// input#outlined-basic {
+//     padding: 7px 22px;
+// }
+.search-form input{
 	width: 93%;
-    padding: 10px;
+    padding: 7px 22px;
     outline: none;
     font-size: 1em;
     color: #fff;
     border: 1px solid #FFF;
     background: rgba(255, 255, 255, 0.45);
 }
-.search-form input[type='submit']{
-	    width: 40px;
-    height: 41px;
+.search-form button{
+	width: 40px;
+    // height: 41px;
     outline: none;
     border: 1px solid #fff;
+    padding: .375rem .75rem;
     // background: url(../images/can.png) no-repeat 6px 7px #FCCD1E;
     display: inline-block;
 }
-.search-form input[type='submit']:hover {
+.search-form button:hover {
     // background: url(../images/can.png) no-repeat 6px 7px #039445;
         transition: 0.5s all;
     -webkit-transition: 0.5s all;
@@ -1159,7 +1178,7 @@ ul.product-qty {
     width: 100%;
     height: 114px;
     display: block;
-    // background: url(../images/sh.jpg)no-repeat ;
+    // background-image: url('../statics/sh.jpg');
     padding: 3em 0;
     background-size: cover;
 }
@@ -2270,13 +2289,13 @@ span.last {
 .big-sale1 {
     margin: 3em 0 0;
 }
-.search-form input[type='text'] {
+.search-form input {
     width: 92%;
 }
-.search-form {
-    width: 60%;
-    margin: 0 auto;
-}
+// .search-form {
+//     // width: 60%;
+//     margin: 0 auto;
+// }
 .main-agileits {
     width: 50%;
 }
@@ -2361,15 +2380,15 @@ p.fo-para {
     padding: 12px 17px !important;
 }
 .dropdown-menu.multi {
-    min-width: 730px;
+    min-width: 290px;
 }
 
-.search-form input[type='text'] {
+.search-form input {
     width: 89%;
 }
-.search-form {
-    width: 70%;
-}
+// .search-form {
+//     width: 70%;
+// }
 .carousel-indicators {
     left: 46%;
 }
@@ -2509,8 +2528,8 @@ nav.navbar.navbar-default {
 	overflow-x: hidden;
 }
 .dropdown-menu.multi {
-    min-width: auto;
-    padding: 0px;
+    min-width: 290px;
+    // padding: 20px;
     text-align: center;
 }
 ul.multi-column-dropdown {
@@ -2557,16 +2576,16 @@ ul.multi-column-dropdown {
 .spec h3 {
     font-size: 2.8em;
 }
-.search-form {
-    width: 76%;
-    margin: 0 auto;
-}
+// .search-form {
+//     width: 76%;
+//     margin: 0 auto;
+// }
 .banner-info {
     margin: 5em 0;
 }
-.search-form {
-    width: 76%;
-}
+// .search-form {
+//     width: 76%;
+// }
 .agileinf {
     padding-top: 0em;
 }
@@ -2659,9 +2678,9 @@ a.at-in {
     width: 100%;
     font-size: 2em;
 }
-.search-form {
-    width: 93%;
-}
+// .search-form {
+//     width: 93%;
+// }
 .banner-info {
     margin: 4em 0;
 }
@@ -2892,19 +2911,19 @@ img.img-head {
 .banner-info h3 {
     font-size: 1.4em;
 }
-.search-form input[type='submit'] {
+.search-form button {
     width: 35px;
-    height: 35px;
+    // height: 35px;
     // background: url(../images/can.png) no-repeat 4px 3px #FCCD1E;
 }
-.search-form input[type='text'] {
+.search-form button {
     width: 85%;
-    padding: 7px 10px;
+    // padding: 7px 10px;
     font-size: 0.9em;
 }
-.search-form {
-    width: 95%;
-}
+// .search-form {
+//     width: 95%;
+// }
 .spec h3 {
     font-size: 1.7em;
 }
