@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { addProductToCar } from "../../actions";
+import "./style.scss";
 
 import { FlooterCard } from "./Flooter-Product";
 import { CardProxy } from "../../proxyes";
@@ -20,7 +21,13 @@ const ProductComponent = (props) => {
     <div className="">
       <div className="">
         <a href="#" data-toggle="modal" data-target="#myModal4" className="">
-          <img src={product.url_image} height="130px" width="95%" alt="" />
+          <img
+            className="kh_img"
+            src={product.url_image}
+            height="130px"
+            width="95%"
+            alt=""
+          />
           <div className="offer">
             <p>
               <span>Oferta</span>
@@ -45,7 +52,10 @@ const ProductComponent = (props) => {
             <div className="clearfix"></div>
           </div>
           <div className="add">
-            <button className="btn btn-danger my-cart-btn my-cart-b" onClick={e => handleAddProduct(e, product)}>
+            <button
+              className="btn btn-danger my-cart-btn my-cart-b"
+              onClick={(e) => handleAddProduct(e, product)}
+            >
               Add to Cart
             </button>
           </div>
@@ -56,7 +66,7 @@ const ProductComponent = (props) => {
 };
 
 const mapDispatchToProps = {
-  addProductToCar
+  addProductToCar,
 };
 
 const Product = connect(null, mapDispatchToProps)(ProductComponent);
