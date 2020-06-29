@@ -29,9 +29,9 @@ const ListProductsComponent = ({ productsSelected }) => {
   const getProducts = async () => {
     try {
       // Request of products for client or user autenticate
-      let response = storeCurrent ? await GetProductStoreService(storeCurrent) : await GetProductService()
+      let response = !storeCurrent ? await GetProductStoreService(storeCurrent) : await GetProductService()
       let resp = response.data
-      console.log('resp: ', resp);
+      console.log('resp:  ** ', resp);
       setProductList(resp)
     } catch (e) { console.log('error create product: ', e) }
   };  
