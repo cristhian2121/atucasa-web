@@ -32,7 +32,7 @@ export const NavBarComponent = ({ productsSelected }) => {
           <div className="head-t nav-bar-items col-md-8 col-sm-12">
             <ul className="card">
               <li>
-                <div class="search-form">
+                <div className="search-form">
                   <TextField id="outlined-basic" variant="outlined" placeholder="Search..."/>
                   <button
                     className="btn btn-outline-success my-2 my-sm-0"
@@ -52,7 +52,7 @@ export const NavBarComponent = ({ productsSelected }) => {
                   </ul>)
                 }          
               </li>        
-              {/* <li><a href="" ><i class="fa fa-user" aria-hidden="true"></i>Login</a></li> */}
+              {/* <li><a href="" ><i className="fa fa-user" aria-hidden="true"></i>Login</a></li> */}
               <li>
                 <div>
                   <SettingsIcon color="primary"/>Administración
@@ -60,7 +60,7 @@ export const NavBarComponent = ({ productsSelected }) => {
               </li>
               <li>
                 <div className="d-flex" onClick={redirectToShop}>
-                  <ShoppingCartIcon style={{ color: "#e5097f", fontSize: "1.8rem" }} />
+                  <ShoppingCartIcon className="car" />
                   <div className='circle'>{productsSelected.length}</div>
                 </div>
               </li>
