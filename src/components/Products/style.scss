@@ -1,12 +1,18 @@
+@import '../../styles/variables.scss';
+
 .formProduct{
   
 }
 
 #pepe {
-  color:red
+  color: $base-color;
 }
 
 .mid-1{
-  padding: 1em 0 0;
+  padding: 0.45em 0 0;
 
+}
+
+.kh_img {
+  object-fit: cover;
 }

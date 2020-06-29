@@ -34,7 +34,7 @@ module.exports = {
       }, //rule Sass
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        include: /node_modules/,
         loaders: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {

@@ -1,5 +1,7 @@
+@import '../../styles/variables.scss';
+
 .circle {
-  background-color: #de9818;
+  background-color: $base-color;
   color: #fff;
   width: 21px;
   height: 21px;
@@ -11,6 +13,6 @@
 }
 
 .car {
-  color: "#e5097f";
-  font-size: 1.8rem;
+  color: $primary-color;
+  font-size: 27px !important;
 }

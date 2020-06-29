@@ -1,9 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import { addProductToCar } from "../../actions";
+import "./style.scss";
 
 import { FlooterCard } from "./Flooter-Product";
 import { CardProxy } from "../../proxyes";
 
-export const Product = (props) => {
+const ProductComponent = (props) => {
   const { product, selected } = props;
   const quantityProduct = product && product.number ? product.number : 0;
   const _handleClick = (event, id) => {
@@ -13,33 +17,19 @@ export const Product = (props) => {
 
   const handleDeleteProduct = (id) => props.deleteProduct(id)
 
-  return (
-    <>
-      <CardProxy
-        product={product}
-        clickEvent={_handleClick}
-        unClickEvent={_handleUnClick}
-        selected={selected}
-        FlooterCard={
-          <FlooterCard quantity={quantityProduct} product={product} deleteProduct={handleDeleteProduct}/>
-        }
-      />
-    </>
-  );
-};
+  const handleAddProduct = (event, product) => props.addProductToCar(product);
 
-export const Pepe = ({ product, selected }) => {
-  console.log("product: ", product.image);
   return (
     <div className="">
       <div className="">
-        <a
-          href="#"
-          data-toggle="modal"
-          data-target="#myModal4"
-          className=""
-        >
-          <img src={product.image} height="130px" width="100%" alt="" />
+        <a href="#" data-toggle="modal" data-target="#myModal4" className="">
+          <img
+            className="kh_img"
+            src={product.url_image}
+            height="130px"
+            width="95%"
+            alt=""
+          />
           <div className="offer">
             <p>
               <span>Oferta</span>
@@ -49,13 +39,14 @@ export const Pepe = ({ product, selected }) => {
         <div className="mid-1">
           <div className="women">
             <h6>
-              <a href="single.html">Soya Chunks</a>(1 kg)
+              <a href="single.html">{product.name}</a>(
+              {product.presentatio || "1 Kg"})
             </h6>
           </div>
           <div className="mid-2">
             <p>
-              <label>$4.00</label>
-              <em className="item_price">$3.50</em>
+              {/* <label>$4.00</label> */}
+              <em className="item_price">$ {product.price}</em>
             </p>
             <div className="block">
               <div className="starbox small ghosting"> </div>
@@ -65,12 +56,7 @@ export const Pepe = ({ product, selected }) => {
           <div className="add">
             <button
               className="btn btn-danger my-cart-btn my-cart-b"
-              data-id="4"
-              data-name="Soya Chunks"
-              data-summary="summary 4"
-              data-price="3.50"
-              data-quantity="1"
-              data-image="images/of3.png"
+              onClick={(e) => handleAddProduct(e, product)}
             >
               Add to Cart
             </button>
@@ -80,3 +66,10 @@ export const Pepe = ({ product, selected }) => {
     </div>
   );
 };
+
+const mapDispatchToProps = {
+  addProductToCar,
+};
+
+const Product = connect(null, mapDispatchToProps)(ProductComponent);
+export { Product };
