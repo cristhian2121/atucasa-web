@@ -7,12 +7,14 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
+import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import "./style.scss";
 
 import {Login} from "../Login/Login"
 
 export const NavBarComponent = ({ productsSelected }) => {
   const [openLogin, setOpenLogin] = useState(false)
+  const [openAdmin, setOpenAdmin] = useState(false)
   let history = useHistory();
 
   const redirectToShop = () => {
@@ -63,10 +65,19 @@ export const NavBarComponent = ({ productsSelected }) => {
                 }          
               </li>        
               {/* <li><a href="" ><i className="fa fa-user" aria-hidden="true"></i>Login</a></li> */}
-              <li>
-                <div>
+              <li className="dropdown">
+                <div onClick={() => setOpenAdmin(!openAdmin)}>
                   <SettingsIcon color="primary"/>Administración
                 </div>
+                { openAdmin && 
+                  (<ul className="dropdown-menu multi multi1">
+                    {/* <Router> */}
+                      <ul className="multi-column-dropdown">
+                        <li><Link to="product/create"><AddCircleTwoToneIcon color="secondary"/> Adicionar productos</Link></li>                    
+                      </ul>
+                    {/* </Router> */}
+                  </ul>)
+                } 
               </li>
               <li>
                 <div className="d-flex" onClick={redirectToShop}>

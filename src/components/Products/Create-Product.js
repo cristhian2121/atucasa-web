@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   ValidatorForm,
   TextValidator,
@@ -95,18 +96,14 @@ export const CreateProduct = () => {
 
   return (
     <>
-      <div>Agrega tu producto</div>
-      <div className="banner-top">
-        <img src={pepe} width="100%" height="200px" />
-        <div className="container">
-          <h3 >Codes</h3>
-          <h4><a href="index.html">Home</a><label>/</label>Codes</h4>
-          <div className="clearfix"> </div>
+      <div class="banner-top">
+        <div class="container">
+          <h3 >Agregar Producto</h3>
+          <h4><Link to="/">Inicio</Link><label>/</label>Agregar producto</h4>
+          <div class="clearfix"> </div>
         </div>
       </div>
-      <div className="col-12 d-flex">
-        {/* <div className="col-md-2"></div> */}
-
+      <div className="container col-12 d-flex">
         <div className="col-12">
           <ValidatorForm
             id="productsForm"
@@ -121,16 +118,6 @@ export const CreateProduct = () => {
               value={name}
               validators={["required", "maxStringLength:50"]}
               errorMessages={[FORM_REQUIRED, `${FORM_MAX} 50`]}
-              className="col-md-6"
-            />
-            <TextValidator
-              multiline
-              label="Descripción"
-              onChange={(e) => setDescription(e.target.value)}
-              name="description"
-              value={description}
-              validators={["maxStringLength:500"]}
-              errorMessages={[`${FORM_MAX} 500`]}
               className="col-md-6"
             />
             <TextValidator
@@ -230,12 +217,22 @@ export const CreateProduct = () => {
                 </MenuItem>
               ))}
             </SelectValidator> */}
-            <Button type="submit" disabled={isSending}>Guardar</Button>
-            <Button onClick={clearForm}>Cancelar</Button>
+            <TextValidator
+              multiline
+              label="Descripción"
+              onChange={(e) => setDescription(e.target.value)}
+              name="description"
+              value={description}
+              validators={["maxStringLength:500"]}
+              errorMessages={[`${FORM_MAX} 500`]}
+              className="col-md-6"
+            />
+            <div className="col-md-12 titleSection">
+              <Button type="submit" disabled={isSending} color="primary" variant="contained">Guardar</Button>
+              <Button onClick={clearForm} variant="contained">Cancelar</Button>
+            </div>
           </ValidatorForm>
         </div>
-
-        <div className="col-md-2"></div>
       </div>
     </>
   );
