@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, HashRouter } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, HashRouter } from "react-router-dom";
 
 import { HomeContainer } from "./containers";
 import { NotFound } from "./components";
@@ -11,8 +11,8 @@ import { NavBar } from "./components";
 export const App = () => (
   // <HomeContainer/>
   <>
-  <NavBar />
   <HashRouter>
+    <NavBar />
     <Switch>
       <Route exact path="/" component={HomeContainer} />
       <Route exact path="/product/create/" component={CreateProduct} />
