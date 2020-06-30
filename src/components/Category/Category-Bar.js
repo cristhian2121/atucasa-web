@@ -25,7 +25,7 @@ export const CategoryBar = (props) => {
   return (
     <>
       <div>
-        <h5 className={style.titleSection}>Categorias</h5>
+        <h3 className="titleSection">Categorias</h3>
         <ExpansionPanelProxy items={categories} />
       </div>
     </>

@@ -96,12 +96,12 @@ export const CreateProduct = () => {
   return (
     <>
       <div>Agrega tu producto</div>
-      <div class="banner-top">
+      <div className="banner-top">
         <img src={pepe} width="100%" height="200px" />
-        <div class="container">
+        <div className="container">
           <h3 >Codes</h3>
           <h4><a href="index.html">Home</a><label>/</label>Codes</h4>
-          <div class="clearfix"> </div>
+          <div className="clearfix"> </div>
         </div>
       </div>
       <div className="col-12 d-flex">

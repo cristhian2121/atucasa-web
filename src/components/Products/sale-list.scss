@@ -1,5 +1,78 @@
-.spec h3 {
-  font-size: 1em;
-  color: red($color: #000000);
+@import '../../styles/variables.scss';
+
+h3 {
+  text-align: center;  
 }
 
+.carousel {
+  width: 100%;
+  overflow: scroll;
+  padding: 30px;
+  position: relative;
+}
+
+.container__productsale {
+display: flex;
+padding-top: 10px;
+}
+
+.productsale--product {
+height: 180px;
+width: 250px;  
+
+border-radius: 11px; 
+margin-left: 5px;  
+
+display: flex;
+position: relative;
+cursor: pointer;
+
+transition: 400ms;
+transform-origin: left;
+}
+
+.productsale--product:hover {
+transform: scale(1.15)
+}
+
+.productsale--product:hover ~ .productsale--product {
+transform: translate3d(35px, 0, 0);
+}
+
+.container__productsale:hover .productsale--product:hover  {
+opacity:1;
+}
+
+.container__productsale:hover .productsale--product {
+opacity:0.8;
+}
+
+
+.productsale--product img {
+object-fit: cover;
+border-radius: 10px;
+}
+
+.productsale--product button {
+position: absolute;
+cursor: pointer;
+top: 147px;
+right: 30px;
+border: none;
+
+border-radius: 14px;
+background-color: $white-color;
+color: $primary-color;
+padding: 4px 8px 4px 8px;
+font-size: 1em;
+outline: none;
+}
+
+.productsale--product button:hover {
+color: $primary-color-dark;
+box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.BrainhubCarousel__arrows {
+  background-color: $primary-color !important;
+}

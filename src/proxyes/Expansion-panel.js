@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   heading: {
-    fontSize: theme.typography.pxToRem(15),
+    fontSize: theme.typography.pxToRem(22),
     fontWeight: theme.typography.fontWeightRegular,
   },
 }));
@@ -25,13 +25,15 @@ export const ExpansionPanelProxy = ({ items }) => {
     useSelected(id);
   };
 
-  const itemSelected = (id) => {
+  const itemSelected = (id, text = false) => {
     if (selected == id) {
-      console.log('Yeah');
+      console.log("Yeah");
+      if (text)return { fontWeight: 'bold' }
       return {
-        border: "1px outset",
+        border: "0.8px outset",
+        borderColor: "rgb(38,99,165,0.1)",
         boxShadow: "1px 1px 2px",
-        background: 'rgb(226, 224, 115 )'
+        // background: 'rgb(38,99,165,0.07)'
       };
     }
   };
@@ -53,7 +55,7 @@ export const ExpansionPanelProxy = ({ items }) => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>{item.name}</Typography>
+            <Typography className={classes.heading} style={itemSelected(item.id, true)}>{item.name}</Typography>
           </ExpansionPanelSummary>
           {/* <ExpansionPanelDetails>
             <Typography>
