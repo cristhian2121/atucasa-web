@@ -15,13 +15,14 @@ import {
   ValidatorForm,
   TextValidator,
 } from "react-material-ui-form-validator";
-import { FORM_REQUIRED, FORM_MAX } from "../../mocks"
+import { FORM_REQUIRED, FORM_MAX, ADMIN } from "../../mocks"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useSnackbar } from 'notistack';
 import { LoginService } from "./../../services/auth/auth-service";
 import { useHistory } from "react-router-dom";
+
 // import Copyright from '../../components/common/copyright'
 // import Logo from '../../static/logo_pop_litle.png'
 
@@ -46,10 +47,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Login = () => {
-  const classes = useStyles();
+  let history = useHistory();
+  const classes = useStyles();  
   const { enqueueSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false)
-  let history = useHistory();
   const form = useRef("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -58,13 +59,21 @@ export const Login = () => {
     // event.preventDefault()
     let data = generateData()
 
-    let response = await LoginService(data)
+    let response = await LoginService(data);
+    console.log('response: ', response);
 
-    if (response) enqueueSnackbar(response['detail'], { variant: 'error' })
-    else {
-      // history.push('/home/')
-      location.reload()
+    if (response && response.groups) {
+      const rol = response.groups[0]
+      if (rol == ADMIN) history.push('/clients/list');
+      else history.push('/perro');
+      enqueueSnackbar(response.detail, { variant: 'success' })
+      return
     }
+    console.log('else');
+    enqueueSnackbar(response.detail, { variant: 'error' })
+    
+
+    
   }
 
   const generateData = () => {

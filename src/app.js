@@ -11,13 +11,13 @@ import { NavBar } from "./components";
 export const App = () => (
   // <HomeContainer/>
   <>
-  <NavBar />
-  <HashRouter>
-    <Switch>
-      <Route exact path="/" component={HomeContainer} />
-      <Route exact path="/product/create/" component={CreateProduct} />
-      <Route component={NotFound} />
-    </Switch>
-  </HashRouter>
+    <HashRouter>
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={HomeContainer} />
+        <Route exact path="/product/create/" component={CreateProduct} />
+        <Route component={NotFound} />
+      </Switch>
+    </HashRouter>
   </>
 );
