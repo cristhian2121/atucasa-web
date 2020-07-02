@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
@@ -23,6 +23,16 @@ export const NavBarComponent = ({ productsSelected }) => {
     }
   };
 
+  useEffect(() => {
+
+    document.addEventListener('click', ({target}) => {
+      if (!target.closest('.dropdown')){
+        setOpenLogin(false)
+      }
+    }, [])
+    
+  })
+
   return (
     <>
       <div>
@@ -45,7 +55,7 @@ export const NavBarComponent = ({ productsSelected }) => {
                 </div>		
               </li>
               <li className="dropdown">
-                <div onClick={() => setOpenLogin(!openLogin)}>
+                <div className="cursort--point" onClick={() => setOpenLogin(!openLogin)}>
                   <AccountCircleOutlinedIcon color="primary"/> Mi cuenta
                 </div>
                 { openLogin && 

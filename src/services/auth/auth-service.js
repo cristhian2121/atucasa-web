@@ -11,6 +11,7 @@ export const LoginService = (dataAuth) => {
       window.localStorage.setItem('group', response.data.groups.length ? response.data.groups[0] : '' )
       window.localStorage.setItem('store', response.data.store )
       apiBussines.defaults.headers.common.Authorization = 'JWT ' + response.data.token /** estructura del token */
+      return response.data || response.detail
     })
     .catch(error => {
       return error.response.data

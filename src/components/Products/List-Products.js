@@ -5,15 +5,24 @@ import "../../styles/variables.scss";
 
 import { Product, IndividualProduct } from "./Product";
 
-import { GetProductService, GetProductStoreService, deleteProductService } from "./../../services/Products-Service"
+import { Loader } from "../index";
+
+import {
+  GetProductService,
+  GetProductStoreService,
+  deleteProductService,
+} from "./../../services/Products-Service";
 
 // Mock
 import { productMock } from "../../mocks/product";
 
 const ListProductsComponent = ({ productsSelected }) => {
-  console.log('********');
-  const storeCurrent = window.localStorage ? window.localStorage.getItem("store") : null
-  const [productList, setProductList] = useState([])
+  console.log("********");
+  const storeCurrent = window.localStorage
+    ? window.localStorage.getItem("store")
+    : null;
+  const [productList, setProductList] = useState([]);
+  const [loader, setLoader] = useState(false);
   const products = [1, 2, 3, 4, 5];
   const headers = {
     avatar: "KH",
@@ -22,34 +31,43 @@ const ListProductsComponent = ({ productsSelected }) => {
     subheader: "Figure in proportion 1x1",
   };
 
-  useEffect (() => {
-      getProducts()
-  },[]);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const getProducts = async () => {
     try {
       // Request of products for client or user autenticate
-      let response = !storeCurrent ? await GetProductStoreService(storeCurrent) : await GetProductService()
-      let resp = response.data
-      console.log('resp:  ** ', resp);
-      setProductList(resp)
-    } catch (e) { console.log('error create product: ', e) }
-  };  
+      setLoader(false);
+      let response = !storeCurrent
+        ? await GetProductStoreService(storeCurrent)
+        : await GetProductService();
+      let resp = response.data;
+      console.log("resp:  ** ", resp);
+      setProductList(resp);
+      setLoader(true);
+    } catch (e) {
+      console.log("error create product: ", e);
+    }
+  };
   const deleteProduct = async (id) => {
     /* Request for deleting product, this is enable for client */
     if (storeCurrent) {
       try {
-        let response = await deleteProductService(id)
-        removeProduct(id)
-      }catch (e) { console.log('error delete product: ', e) }
-    } else console.log('No cuenta con los permisos suficientes')
-  
-  }
+        setLoader(false);
+        let response = await deleteProductService(id);
+        removeProduct(id);
+        setLoader(true);
+      } catch (e) {
+        console.log("error delete product: ", e);
+      }
+    } else console.log("No cuenta con los permisos suficientes");
+  };
   const removeProduct = (id) => {
     /* Method for remove product id DOM */
-    let products = productList.filter(item => item.id != id)
-    setProductList(products)
-  }
+    let products = productList.filter((item) => item.id != id);
+    setProductList(products);
+  };
 
   const cardMedia = {
     image:
@@ -78,7 +96,7 @@ const ListProductsComponent = ({ productsSelected }) => {
           </div>
         ))}
       </div>
-      ;
+      <Loader hidden={loader} />
     </>
   );
 };

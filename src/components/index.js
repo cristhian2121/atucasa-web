@@ -5,5 +5,15 @@ import { CategoryBar } from "./Category/Category-Bar";
 import { SaleList } from "./Products/Sale-List";
 import { CreateProduct } from "./Products/Create-Product";
 import { Login } from "./Login/Login";
+import { Loader } from "./Commons/Loader";
 
-export { ListProducts, NavBar, NotFound, CategoryBar, SaleList, CreateProduct, Login };
+export {
+  ListProducts,
+  NavBar,
+  NotFound,
+  CategoryBar,
+  SaleList,
+  CreateProduct,
+  Login,
+  Loader,
+};
