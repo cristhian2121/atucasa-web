@@ -8,6 +8,7 @@ import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined"
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import "./style.scss";
 
 import {Login} from "../Login/Login"
@@ -61,6 +62,8 @@ export const NavBarComponent = ({ productsSelected }) => {
                 { openLogin && 
                   (<ul className="dropdown-menu multi multi1">
                     <Login />
+                    <li><Link to="product/create"><ArrowForwardIcon color="secondary"/> Registrate</Link></li>
+                    <li>¿Olvidaste tu contraseña?</li>
                   </ul>)
                 }          
               </li>        
@@ -73,7 +76,7 @@ export const NavBarComponent = ({ productsSelected }) => {
                   (<ul className="dropdown-menu multi multi1">
                     {/* <Router> */}
                       <ul className="multi-column-dropdown">
-                        <li><Link to="product/create"><AddCircleTwoToneIcon color="secondary"/> Adicionar productos</Link></li>                    
+                        <li><Link to="client/create"><AddCircleTwoToneIcon color="secondary"/> Adicionar productos</Link></li>                    
                       </ul>
                     {/* </Router> */}
                   </ul>)

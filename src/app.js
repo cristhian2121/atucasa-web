@@ -1,9 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, HashRouter } from "react-router-dom";
 
-import { HomeContainer } from "./containers";
-import { NotFound } from "./components";
-import { CreateProduct } from "./components/Products/Create-Product";
+import { HomeContainer, ClientContainer } from "./containers";
+import { NotFound, CreateProduct } from "./components";
 import { NavBar } from "./components";
 import { CreateClient } from "./components/Clients/Create-Client"
 

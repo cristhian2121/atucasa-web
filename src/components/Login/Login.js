@@ -9,7 +9,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import {
   ValidatorForm,
@@ -60,7 +59,6 @@ export const Login = () => {
     let data = generateData()
 
     let response = await LoginService(data);
-    console.log('response: ', response);
 
     if (response && response.groups) {
       const rol = response.groups[0]
@@ -161,20 +159,6 @@ export const Login = () => {
             Ingresar
           </Button>
         </ValidatorForm>
-        <div>
-          <ul className="card">
-            <li>
-              <div>
-                <ArrowForwardIcon color="secondary"/> Registrate
-              </div>
-            </li>
-            <li>
-              <div>
-                ¿Olvidaste tu contraseña?
-              </div>
-            </li>
-          </ul>
-        </div>
       </div>
       {/* <Box mt={8}>
         <Copyright />
