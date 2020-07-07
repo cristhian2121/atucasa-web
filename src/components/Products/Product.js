@@ -10,10 +10,12 @@ import { CardProxy } from "../../proxyes";
 const ProductComponent = (props) => {
   const { product, selected } = props;
   const quantityProduct = product && product.number ? product.number : 0;
-  // const _handleClick = (event, id) => {
-  //   props.addProductToCar(id);
-  // };
-  // const _handleUnClick = (event, id) => props.removeProduct(id);
+  const _handleClick = (event, id) => {
+    props.addProductToCar(id);
+  };
+  const _handleUnClick = (event, id) => props.removeProduct(id);
+
+  const handleDeleteProduct = (id) => props.deleteProduct(id)
 
   const handleAddProduct = (event, product) => props.addProductToCar(product);
 

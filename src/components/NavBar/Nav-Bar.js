@@ -81,7 +81,7 @@ export const NavBarComponent = ({ productsSelected }) => {
               </li>
               <li>
                 <div className="d-flex" onClick={redirectToShop}>
-                  <ShoppingCartIcon className="car" />
+                  <ShoppingCartIcon style={{ color: "#e5097f", fontSize: "1.8rem" }} />
                   <div className='circle'>{productsSelected.length}</div>
                 </div>
               </li>
