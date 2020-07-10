@@ -5,6 +5,7 @@ import MaterialTable from "material-table";
 import { TablePagination } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { zhCN } from "@material-ui/core/locale";
+import Checkbox from '@material-ui/core/Checkbox';
 
 // config theme
 const theme = createMuiTheme({}, zhCN);
@@ -46,6 +47,10 @@ export const TableGeneric = (props) => {
           eventEmitter = props.duplicateItem;
           icon = "file_copy";
           break;
+        case "star":
+          eventEmitter = props.checkedItem;
+          icon = "star";
+          break;
         default:
           break;
       }
@@ -78,6 +83,9 @@ export const TableGeneric = (props) => {
         columns={props.columns}
         data={props.data}
         actions={buildActions(props)}
+        options={{
+          actionsColumnIndex: -1
+        }}
         components={{
           Pagination: (propsPaginator) => (
             console.log("propsPaginator: ", propsPaginator),

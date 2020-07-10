@@ -40,7 +40,7 @@ export const NavBarComponent = ({ productsSelected }) => {
         <div className="header">
         <div className="container col-12">			
           <div className="logo col-md-4 col-sm-12">
-            <h1 ><a href="index.html">Nuestro Mall <span>a tu casa</span></a></h1>
+            <h1 ><Link to="/">Nuestro Mall <span>a tu casa</span></Link></h1>
           </div>
           <div className="head-t nav-bar-items col-md-8 col-sm-12">
             <ul className="card">

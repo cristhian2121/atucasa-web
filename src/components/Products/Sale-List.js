@@ -40,7 +40,7 @@ export const SaleList = () => {
   return (
     <div>
       <div className="title__secction">
-        <h3>Ofertas especiales</h3>
+        <h3>Prodcutos destacados</h3>
       </div>
       <div className="container__productsale">
         <Carousel
