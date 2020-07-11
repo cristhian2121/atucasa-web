@@ -17,8 +17,8 @@ padding-top: 10px;
 }
 
 .productsale--product {
-height: 180px;
-width: 250px;  
+height: 150px;
+width: 230px;  
 
 border-radius: 11px; 
 margin-left: 5px;  
@@ -56,8 +56,8 @@ border-radius: 10px;
 .productsale--product button {
 position: absolute;
 cursor: pointer;
-top: 147px;
-right: 30px;
+top: 117px;
+right: 10px;
 border: none;
 
 border-radius: 14px;
@@ -75,4 +75,10 @@ box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
 .BrainhubCarousel__arrows {
   background-color: $primary-color !important;
+  opacity: 0.4;
+  padding: 33px 10px 33px 10px  !important;
+}
+
+.BrainhubCarousel__arrows:hover{
+  opacity: 0.8;
 }
