@@ -7,6 +7,7 @@ import {
 } from "react-material-ui-form-validator";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
+import {CategoryStoreService} from "../../services/Clients-Service"
 
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX } from "../../mocks";
 
@@ -14,14 +15,19 @@ import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX } from "../../mocks";
 export const CreateShop = (props) => {
   const [name, setName] = useState("");
   const [user, setUser] = useState(false);
-  const [categoryStore, setCategoryStore] = useState("");
+  const [categoryStore, setCategoryStore] = useState([]);
   const [logo, setLogo] = useState("");
   const [description, setDescription] = useState([]);
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState([1]);
+  const [phone, setPhone] = useState("");
   const [contactName, setContactName] = useState([])
   const [isSending, setIsSending] = useState(false);
   const form = useRef("");
+
+  useEffect (() => {
+    /* Method mounted in functions */
+    getCategoriesStore()
+  },[user]);
 
   const branches = [
     {
@@ -41,13 +47,13 @@ export const CreateShop = (props) => {
 
     props.save(data)
   };
-  const getCategories = async () => {
-    // try {
-    //   let response = await getCategoryShopService()
-    //   let resp = response.data
-    //   // upload options for field permissions
-    //   setPermissions(resp)
-    // } catch (e) { console.log('error create product', e) }
+  const getCategoriesStore = async () => {
+    try {
+      let response = await CategoryStoreService()
+      let resp = response.data
+      // upload options for field permissions
+      setCategoryStore(resp)
+    } catch (e) { console.log('error create product', e) }
   };  
   const clearForm = (event) => {
     setFirstName("")
@@ -105,7 +111,7 @@ export const CreateShop = (props) => {
               errorMessages={[FORM_REQUIRED]}
               className="col-md-6"
             >
-              {branches.map((item) => (
+              {categoryStore.map((item) => (
                 <MenuItem key={item.id} value={item.id}>
                   {item.name}
                 </MenuItem>

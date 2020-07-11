@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import Divider from '@material-ui/core/Divider';
 
-import { SaveProductService, getCategoryProductsService } from "../../services/Products-Service"
+import { getGroupsService } from "../../services/Clients-Service"
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
 
 
@@ -26,10 +26,10 @@ export const CreateClient = (
   const [permissions, setPermissions] = useState([])
   const form = useRef("");
 
-  // useEffect (() => {
-  //   /* Method mounted in functions */
-  //   getPermissions()
-  // },[permissions]);
+  useEffect (() => {
+    /* Method mounted in functions */
+    getPermissions()
+  },[permission]);
   const branches = [
     {
       id: 1,
@@ -50,7 +50,7 @@ export const CreateClient = (
   };
   const getPermissions = async () => {
     try {
-      let response = await getCategoryProductsService()
+      let response = await getGroupsService()
       let resp = response.data
       // upload options for field permissions
       setPermissions(resp)
@@ -149,7 +149,7 @@ export const CreateClient = (
               errorMessages={[FORM_REQUIRED]}
               className="col-md-6"
             >
-              {branches.map((item) => (
+              {permissions.map((item) => (
                 <MenuItem key={item.id} value={item.id}>
                   {item.name}
                 </MenuItem>
