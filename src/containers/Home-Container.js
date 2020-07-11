@@ -32,7 +32,6 @@ export class HomeContainer extends PureComponent {
   render() {
     return (
       <>
-        {/* <Nav /> */}
         <div className="col-12 px-0 d-flex flex-wrap pt-2">
           <div className="col-md-3 col-sm-12">
             <CategoryBar />
@@ -42,12 +41,6 @@ export class HomeContainer extends PureComponent {
             <br />
             <ListProducts />
           </div>
-          {/* <Nav>
-            <Switch>
-              <Route exact path="/" component={SaleList} />
-              <Route exact path="/product/create" component={ListProducts} />
-            </Switch>
-          </Nav> */}
         </div>
       </>
     );
