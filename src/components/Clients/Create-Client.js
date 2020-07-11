@@ -13,7 +13,9 @@ import { SaveProductService, getCategoryProductsService } from "../../services/P
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
 
 
-export const CreateClient = () => {
+export const CreateClient = (
+  props
+) => {
   const [email, setEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -44,10 +46,7 @@ export const CreateClient = () => {
   const handleSubmit = async () => {
     let data = generateData()
 
-    // try {
-    //   let response = await SaveProductService(data)
-    //   clearForm()
-    // } catch (e) { console.log('error create product', e) }
+    props.save(data)
   };
   const getPermissions = async () => {
     try {
@@ -66,8 +65,8 @@ export const CreateClient = () => {
     setPermission("")
   };
   const generateData = () => {
-    /* generate data save product */
-    let elements = document.getElementById('productsForm').elements;
+    /* generate data */
+    let elements = document.getElementById('clientForm').elements;
     let data = {};    
     for (let item of elements) {
       if (item.name) {
@@ -90,7 +89,7 @@ export const CreateClient = () => {
       <div className="container col-12 d-flex">
         <div className="col-12">
           <ValidatorForm
-            id="productsForm"
+            id="clientForm"
             ref={form}
             onSubmit={handleSubmit}
             className="col-12"
@@ -128,8 +127,8 @@ export const CreateClient = () => {
               name="contact_phone"
               value={contactPhone}
               type="number"
-              validators={["maxNumber:10"]}
-              errorMessages={[`${FORM_MAXVAL} 10`]}
+              validators={["maxStringLength:10"]}
+              errorMessages={[`${FORM_MAX} 10`]}
               className="col-md-6"
             />
             <TextValidator
@@ -137,8 +136,8 @@ export const CreateClient = () => {
               onChange={(e) => setDocumentId(e.target.value)}
               name="document_id"
               value={documentId}
-              validators={["maxNumber:20"]}
-              errorMessages={[`${FORM_MAXVAL} 20`]}
+              validators={["maxStringLength:20"]}
+              errorMessages={[`${FORM_MAX} 20`]}
               className="col-md-6"
             />
             <SelectValidator

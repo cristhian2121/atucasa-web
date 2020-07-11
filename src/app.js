@@ -16,7 +16,7 @@ export const App = () => (
     <Switch>
       <Route exact path="/" component={HomeContainer} />
       <Route exact path="/product/create/" component={CreateProduct} />
-      <Route exact path="/client/create/" component={CreateClient} />
+      <Route exact path="/client/create/" component={ClientContainer} />
       <Route component={NotFound} />
     </Switch>
   </HashRouter>
