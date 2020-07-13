@@ -68,17 +68,7 @@ const ListProductsComponent = ({ productsSelected }) => {
     let products = productList.filter((item) => item.id != id);
     setProductList(products);
   };
-
-  const cardMedia = {
-    image:
-      "https://media.metrolatam.com/2018/10/25/goku-7863ead337591e85e23ea48a65296821-900x600.jpg",
-    title: "Goku",
-  };
-
-  const cardContent = {
-    description: "Goku is foumous person of goku's universe",
-  };
-
+  
   const validateSelected = (id) => !!productsSelected.find((_) => _ == id);
   return (
     <>

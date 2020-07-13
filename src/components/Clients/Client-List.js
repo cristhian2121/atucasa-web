@@ -1,19 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { TableGeneric, ConfirmModal, Loader } from "../Commons";
 import { TITLECONFIRMDELETE, TEXTCONFIRMDELETE } from "../../mocks";
 
 import { DetailClient } from "./Detail-Client";
 
+// Redux
+import { connect } from "react-redux";
+import { removeClient as RremoveClient } from "../../actions";
+
 import {
   updateClientService,
   deleteClientService,
 } from "../../services/Client-Service";
 
-export const ClientList = ({ clients_, clientsCount_ }) => {
+export const ClientListComponent = (props) => {
+  console.log("props: ", props);
+  const { clientsCount_, clients, RremoveClient } = props;
+  const [clients_, setclient_] = useState(clients);
   const [openModal, setopenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [clientSelected, setclientSelected] = useState({});
+
+  useEffect(() => {
+    console.log("clients: **************", clients);
+    setclient_(clients);
+  }, [clients]);
 
   const state = {
     alert: {
@@ -70,10 +82,8 @@ export const ClientList = ({ clients_, clientsCount_ }) => {
 
   const deleteClient = async (client) => {
     console.log("client: ", client);
-    // const response = await deleteClientService(client.id);
-    // console.log('response: ', response);
-    clients_ = clients_.filter((_) => _.id != client.id);
-    clientsCount_ -= 1;
+    RremoveClient(client.id);
+    setOpenConfirm(false);
   };
 
   // Show client detail
@@ -88,7 +98,7 @@ export const ClientList = ({ clients_, clientsCount_ }) => {
 
   return (
     <div>
-      {!clientsCount_ ? (
+      {!clients_.length ? (
         <Loader />
       ) : (
         <>
@@ -105,7 +115,7 @@ export const ClientList = ({ clients_, clientsCount_ }) => {
             showItem={showDetail}
             // duplicateItem={props.duplicateClient}
             changePage={handleChangePage}
-            count={clientsCount_}
+            count={clients_.length}
           />
         </>
       )}
@@ -129,3 +139,18 @@ export const ClientList = ({ clients_, clientsCount_ }) => {
     </div>
   );
 };
+
+const mapStateToProps = (reducers) => {
+  return reducers.clientReducer;
+};
+
+const mapDispatchToProps = {
+  RremoveClient,
+};
+
+const ClientList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ClientListComponent);
+
+export { ClientList };
