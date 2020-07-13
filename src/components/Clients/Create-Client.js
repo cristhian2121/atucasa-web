@@ -73,6 +73,7 @@ export const CreateClient = (
         data[item.name] = item.value;
       }
     }
+    data['groups'] = [ data['groups'] ]
 
     return data
   };

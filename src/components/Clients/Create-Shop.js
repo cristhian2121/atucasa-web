@@ -22,10 +22,10 @@ export const CreateShop = (props) => {
   const [phone, setPhone] = useState("");
   const [contactName, setContactName] = useState([])
   const [isSending, setIsSending] = useState(false);
+  const [categoriesStore, setCategoriesStore] = useState([]);
   const form = useRef("");
 
   useEffect (() => {
-    /* Method mounted in functions */
     getCategoriesStore()
   },[user]);
 
@@ -52,7 +52,7 @@ export const CreateShop = (props) => {
       let response = await CategoryStoreService()
       let resp = response.data
       // upload options for field permissions
-      setCategoryStore(resp)
+      setCategoriesStore(resp)
     } catch (e) { console.log('error create product', e) }
   };  
   const clearForm = (event) => {
@@ -111,7 +111,7 @@ export const CreateShop = (props) => {
               errorMessages={[FORM_REQUIRED]}
               className="col-md-6"
             >
-              {categoryStore.map((item) => (
+              {categoriesStore.map((item) => (
                 <MenuItem key={item.id} value={item.id}>
                   {item.name}
                 </MenuItem>
