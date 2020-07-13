@@ -4,7 +4,7 @@ import Icon from '@material-ui/core/Icon';
 import AccountCircleOutlinedIcon from '@material-ui/icons/PersonOutlineTwoTone';
 import TextField from '@material-ui/core/TextField';
 
-import { ListProducts, NavBar, CategoryBar, SaleList } from "../components";
+import { ListProducts, NavBar, CategoryBar, SaleList, BarStartClient } from "../components";
 
 // import '../styles/base.scss'
 
@@ -39,7 +39,7 @@ export class HomeContainer extends PureComponent {
           </div>
           <div className="col-md-9 col-sm-12">
             <SaleList />
-            <br />
+            <BarStartClient />
             <ListProducts />
           </div>
           {/* <Nav>

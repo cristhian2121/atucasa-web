@@ -6,6 +6,8 @@ import { SaleList } from "./Products/Sale-List";
 import { CreateProduct } from "./Products/Create-Product";
 import { Login } from "./Login/Login";
 import { Loader } from "./Commons/Loader";
+import { DetailProduct } from "./Products/Detail-Product";
+import { BarStartClient } from "./Clients/Bar-Star-Client";
 
 export {
   ListProducts,
@@ -16,4 +18,6 @@ export {
   CreateProduct,
   Login,
   Loader,
+  DetailProduct,
+  BarStartClient
 };

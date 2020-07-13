@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { ProductSale } from "./Product-Sale";
-
 // import "../../styles/style.scss";
 import { ActionPermPhoneMsg } from "material-ui/svg-icons";
 import permPhoneMsg from "material-ui/svg-icons/action/perm-phone-msg";
@@ -9,7 +7,7 @@ import permPhoneMsg from "material-ui/svg-icons/action/perm-phone-msg";
 import Carousel, { Dots } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
 
-export const SaleProduct = () => {
+export const StarClient = () => {
   return (
     <div className="productsale--product">
       <img
@@ -21,7 +19,7 @@ export const SaleProduct = () => {
   );
 };
 
-export const SaleList = () => {
+export const BarStartClient = () => {
   const [pepes, setpepes] = useState([1, 2, 3, 4, 5]);
   const [value, setValue] = useState(0);
 
@@ -40,7 +38,7 @@ export const SaleList = () => {
   return (
     <div>
       <div className="title__secction">
-        <h3>Productos destacados</h3>
+        <h3>Tiendas destacadas</h3>
       </div>
       <div className="container__productsale">
         <Carousel
@@ -51,18 +49,13 @@ export const SaleList = () => {
           infinite
           slides={pepes.map(() => (
             <div>
-              <SaleProduct />
+              <StarClient />
             </div>
           ))}
           arrows
           clickToChange
         ></Carousel>
       </div>
-      {/* <div className="container__productsale">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => (
-          <SaleProduct />
-        ))}
-      </div> */}
     </div>
   );
 };

@@ -8,7 +8,7 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 import { App } from "./app";
 import reducer from './reducers'
 import './styles/bootstrap.scss'
-import './styles/style.scss'
+import './styles/main.scss'
 import './styles/jstarbox.scss'
 
 const store = createStore(reducer, {})

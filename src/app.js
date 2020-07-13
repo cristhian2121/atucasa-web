@@ -15,6 +15,7 @@ export const App = () => (
     <NavBar />
     <Switch>
       <Route exact path="/" component={HomeContainer} />
+      <Route exact path="/client" component={ClientContainer} />
       <Route exact path="/product/create/" component={CreateProduct} />
       <Route exact path="/client/create/" component={CreateClient} />
       <Route component={NotFound} />
