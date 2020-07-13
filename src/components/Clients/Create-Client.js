@@ -8,6 +8,10 @@ import {
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import Divider from '@material-ui/core/Divider';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { getGroupsService } from "../../services/Clients-Service"
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
@@ -22,8 +26,10 @@ export const CreateClient = (
   const [lastName, setLastName] = useState("");
   const [contactPhone, setContactPhone] = useState([]);
   const [documentId, setDocumentId] = useState("");
+  const [password, setPassword] = useState("")
   const [permission, setPermission] = useState([1]);
   const [permissions, setPermissions] = useState([])
+  const [showPassword, setShowPassword] = useState(false)
   const form = useRef("");
 
   useEffect (() => {
@@ -141,6 +147,28 @@ export const CreateClient = (
               errorMessages={[`${FORM_MAX} 20`]}
               className="col-md-6"
             />
+            <TextValidator
+              label="Contraseña"
+              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={password}
+              type={showPassword ? "text" : "password"}
+              validators={["required"]}
+              errorMessages={[FORM_REQUIRED]}
+              className="col-md-6"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
+            />
             <SelectValidator
               label="Rol"
               onChange={(e) => setPermission(e.target.value)}
@@ -156,7 +184,6 @@ export const CreateClient = (
                 </MenuItem>
               ))}
             </SelectValidator>
-            <Divider component="li" variant="inset" />
             <div className="col-md-12 titleSection">
               <Button type="submit" disabled={isSending} color="primary" variant="contained">Guardar</Button>
               <Button onClick={clearForm} variant="contained">Cancelar</Button>

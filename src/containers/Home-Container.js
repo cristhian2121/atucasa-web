@@ -5,6 +5,7 @@ import AccountCircleOutlinedIcon from '@material-ui/icons/PersonOutlineTwoTone';
 import TextField from '@material-ui/core/TextField';
 
 import { ListProducts, NavBar, CategoryBar, SaleList, BarStartClient } from "../components";
+import { GetProductCategoryService } from "../services/Products-Service"
 
 // import '../styles/base.scss'
 
@@ -29,17 +30,38 @@ const Nav = () => {
 };
 
 export class HomeContainer extends PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      products: [],
+    };
+    this.getCategoryProduct = this.getCategoryProduct.bind(this);
+  };
+
+  async getCategoryProduct (idCategoryProduct) {
+    try {
+      // Request of products for categories
+      let response = await GetProductCategoryService(idCategoryProduct)
+      let resp = response.data;
+      this.setState({
+        products: resp
+      })
+    } catch (e) {
+      console.log("error get product for categories: ", e);
+    }
+  };
   render() {
     return (
       <>
         <div className="col-12 px-0 d-flex flex-wrap pt-2">
           <div className="col-md-3 col-sm-12">
-            <CategoryBar />
+            <CategoryBar handleCategory={this.getCategoryProduct}/>
           </div>
           <div className="col-md-9 col-sm-12">
             <SaleList />
             <BarStartClient />
-            <ListProducts />
+            <ListProducts productList={this.state.products}/>
           </div>
         </div>
       </>

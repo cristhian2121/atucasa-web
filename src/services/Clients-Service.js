@@ -9,3 +9,6 @@ export const CategoryStoreService = () => apiBussines.get(`/category_store/`)
 
 /* request for creating client */
 export const SaveClientServer = (data) => apiBussines.post('/user/', data)
+
+/* Mpethod for saving store */
+export const SaveStoreServer = (data) => apiBussines.post('/store/', data)

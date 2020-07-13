@@ -72,6 +72,7 @@ export const CreateShop = (props) => {
         data[item.name] = item.value;
       }
     }
+    data.category_store = [data.category_store]
 
     return data
   };

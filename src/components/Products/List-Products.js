@@ -16,8 +16,8 @@ import {
 // Mock
 import { productMock } from "../../mocks/product";
 
-const ListProductsComponent = ({ productsSelected }) => {
-  console.log("********");
+const ListProductsComponent = (props) => {
+  console.log('props: ', props);
   const storeCurrent = window.localStorage
     ? window.localStorage.getItem("store")
     : null;
@@ -79,11 +79,11 @@ const ListProductsComponent = ({ productsSelected }) => {
     description: "Goku is foumous person of goku's universe",
   };
 
-  const validateSelected = (id) => !!productsSelected.find((_) => _ == id);
+  const validateSelected = (id) => !!props.productsSelected.find((_) => _ == id);
   return (
     <>
       <div className="col-12 px-0 d-flex flex-wrap">
-        {productList.map((product) => (
+        {props.productList.map((product) => (
           <div
             className="col-lg-3 col-md-4 col-sm-6 col-12 py-2"
             key={product.id}
