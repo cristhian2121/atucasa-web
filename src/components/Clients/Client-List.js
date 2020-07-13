@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 
-import { Loader } from "../Commons/Loader";
-import { TableGeneric } from "../Commons";
+import { TableGeneric, ConfirmModal, Loader } from "../Commons";
+import { TITLECONFIRMDELETE, TEXTCONFIRMDELETE } from "../../mocks";
+
 import { DetailClient } from "./Detail-Client";
+
+import {
+  updateClientService,
+  deleteClientService,
+} from "../../services/Client-Service";
 
 export const ClientList = ({ clients_, clientsCount_ }) => {
   const [openModal, setopenModal] = useState(false);
+  const [openConfirm, setOpenConfirm] = React.useState(false);
   const [clientSelected, setclientSelected] = useState({});
 
   const state = {
@@ -49,17 +56,33 @@ export const ClientList = ({ clients_, clientsCount_ }) => {
     },
   ];
 
-  const showConfirmation = () => {};
+  // Delete client
 
+  const showConfirm = (client) => {
+    console.log("Quiere borrar");
+    setclientSelected(client);
+    setOpenConfirm(true);
+  };
+
+  const hiddenConfirm = (state) => {
+    setOpenConfirm(false);
+  };
+
+  const deleteClient = async (client) => {
+    console.log("client: ", client);
+    // const response = await deleteClientService(client.id);
+    // console.log('response: ', response);
+    clients_ = clients_.filter((_) => _.id != client.id);
+    clientsCount_ -= 1;
+  };
+
+  // Show client detail
   const showDetail = (client) => {
-    console.log("OK");
     setclientSelected(client);
     setopenModal((openModal) => true);
-    console.log("OK", openModal);
   };
 
   const hiddenDetail = (state) => {
-    console.log("-", state);
     setopenModal((openModal) => state);
   };
 
@@ -78,7 +101,7 @@ export const ClientList = ({ clients_, clientsCount_ }) => {
             data={clients_}
             actions={actions}
             // editItem={props.selectUpdate}
-            deleteItem={showConfirmation}
+            deleteItem={showConfirm}
             showItem={showDetail}
             // duplicateItem={props.duplicateClient}
             changePage={handleChangePage}
@@ -91,6 +114,16 @@ export const ClientList = ({ clients_, clientsCount_ }) => {
           openModal={openModal}
           handleCloseModal_={hiddenDetail}
           client={clientSelected}
+        />
+      )}
+      {openConfirm && (
+        <ConfirmModal
+          title={`${TITLECONFIRMDELETE}`}
+          text={`${TEXTCONFIRMDELETE} ##`}
+          open={openConfirm}
+          handleConfirm_={deleteClient}
+          handleClose_={hiddenConfirm}
+          data={clientSelected}
         />
       )}
     </div>
