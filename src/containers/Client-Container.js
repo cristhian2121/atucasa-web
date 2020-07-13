@@ -1,36 +1,51 @@
 import React, { useState } from 'react';
 import { useSnackbar } from 'notistack';
+import { useHistory } from "react-router-dom";
 
 import { CreateClient, CreateShop } from "../components";
-import { SaveClientServer } from "../services/Clients-Service"
+import { SaveClientServer, SaveStoreServer } from "../services/Clients-Service"
 
 export const ClientContainer = () => {
+  let history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const [fistStep, setFirstStep] = useState(true)
-
   const [dataClient, setDataClient] = useState({})
-  const [dataShop, setDataShop] = useState({})
+  // const [dataShop, setDataShop] = useState({})
 
   const handleSaveClient = (dataClient) => {
     setDataClient(dataClient);
-    // saveClient()
     setFirstStep(false);
   };
   const handleSaveShop = (dataShop) => {
-    setDataShop(dataShop)
+    // setDataShop(dataSho)
 
-    /* Method for saving client with shop */
-    saveClient()
+    /* Method for saving client with store */
+    saveClient(dataShop)
   };
-  const saveClient = async () => {
+  const saveClient = async (dataShop) => {
     try {
-      const response = await SaveClientServer(dataClient);
-      console.log('response: ', response);
+      const resp = await SaveClientServer(dataClient);
+      const response = resp.data
+
+      let dataStore = dataShop
+      dataStore['user'] = response.id
+      // setDataShop(dataStore)
+      saveStore(dataStore)
     }
     catch (e) { 
       let resp = e.response
-      console.log('resp: ', resp);
       (e && resp.data.username) && enqueueSnackbar(resp.data.username, { variant: 'error' })
+    }
+  };
+  const saveStore = async (dataStore) => {
+    try {
+      const resp = await SaveStoreServer(dataStore);
+      enqueueSnackbar('El usuario se creo con éxito, ya puede iniciar sesión en la tienda.', { variant: 'success' })
+      history.push('/')
+    }
+    catch (e) { 
+      let resp = e.response
+      (e && resp.data) && enqueueSnackbar(resp.data, { variant: 'error' })
     }
   }
 
@@ -42,5 +57,5 @@ export const ClientContainer = () => {
       <CreateShop save={handleSaveShop} />
       }
     </div>
-  )
-}
+  );
+};
