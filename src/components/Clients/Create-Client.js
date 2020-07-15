@@ -8,26 +8,34 @@ import {
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import Divider from '@material-ui/core/Divider';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import { SaveProductService, getCategoryProductsService } from "../../services/Products-Service"
+import { getGroupsService } from "../../services/Clients-Service"
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
 
 
-export const CreateClient = () => {
+export const CreateClient = (
+  props
+) => {
   const [email, setEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactPhone, setContactPhone] = useState([]);
   const [documentId, setDocumentId] = useState("");
+  const [password, setPassword] = useState("")
   const [permission, setPermission] = useState([1]);
   const [permissions, setPermissions] = useState([])
+  const [showPassword, setShowPassword] = useState(false)
   const form = useRef("");
 
-  // useEffect (() => {
-  //   /* Method mounted in functions */
-  //   getPermissions()
-  // },[permissions]);
+  useEffect (() => {
+    /* Method mounted in functions */
+    getPermissions()
+  },[permission]);
   const branches = [
     {
       id: 1,
@@ -44,14 +52,11 @@ export const CreateClient = () => {
   const handleSubmit = async () => {
     let data = generateData()
 
-    // try {
-    //   let response = await SaveProductService(data)
-    //   clearForm()
-    // } catch (e) { console.log('error create product', e) }
+    props.save(data)
   };
   const getPermissions = async () => {
     try {
-      let response = await getCategoryProductsService()
+      let response = await getGroupsService()
       let resp = response.data
       // upload options for field permissions
       setPermissions(resp)
@@ -66,14 +71,15 @@ export const CreateClient = () => {
     setPermission("")
   };
   const generateData = () => {
-    /* generate data save product */
-    let elements = document.getElementById('productsForm').elements;
+    /* generate data */
+    let elements = document.getElementById('clientForm').elements;
     let data = {};    
     for (let item of elements) {
       if (item.name) {
         data[item.name] = item.value;
       }
     }
+    data['groups'] = [ data['groups'] ]
 
     return data
   };
@@ -90,7 +96,7 @@ export const CreateClient = () => {
       <div className="container col-12 d-flex">
         <div className="col-12">
           <ValidatorForm
-            id="productsForm"
+            id="clientForm"
             ref={form}
             onSubmit={handleSubmit}
             className="col-12"
@@ -128,8 +134,8 @@ export const CreateClient = () => {
               name="contact_phone"
               value={contactPhone}
               type="number"
-              validators={["maxNumber:10"]}
-              errorMessages={[`${FORM_MAXVAL} 10`]}
+              validators={["maxStringLength:10"]}
+              errorMessages={[`${FORM_MAX} 10`]}
               className="col-md-6"
             />
             <TextValidator
@@ -137,9 +143,31 @@ export const CreateClient = () => {
               onChange={(e) => setDocumentId(e.target.value)}
               name="document_id"
               value={documentId}
-              validators={["maxNumber:20"]}
-              errorMessages={[`${FORM_MAXVAL} 20`]}
+              validators={["maxStringLength:20"]}
+              errorMessages={[`${FORM_MAX} 20`]}
               className="col-md-6"
+            />
+            <TextValidator
+              label="Contraseña"
+              onChange={(e) => setPassword(e.target.value)}
+              name="password"
+              value={password}
+              type={showPassword ? "text" : "password"}
+              validators={["required"]}
+              errorMessages={[FORM_REQUIRED]}
+              className="col-md-6"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
             <SelectValidator
               label="Rol"
@@ -150,13 +178,12 @@ export const CreateClient = () => {
               errorMessages={[FORM_REQUIRED]}
               className="col-md-6"
             >
-              {branches.map((item) => (
+              {permissions.map((item) => (
                 <MenuItem key={item.id} value={item.id}>
                   {item.name}
                 </MenuItem>
               ))}
             </SelectValidator>
-            <Divider component="li" variant="inset" />
             <div className="col-md-12 titleSection">
               <Button type="submit" disabled={isSending} color="primary" variant="contained">Guardar</Button>
               <Button onClick={clearForm} variant="contained">Cancelar</Button>

@@ -24,6 +24,7 @@ export const CategoryBar = (props) => {
       setCategories(dataRaw.data);
     }
   };
+  const _handleCategory = (idCategory) => props.handleCategory(idCategory)
 
   return (
     <>
@@ -31,7 +32,7 @@ export const CategoryBar = (props) => {
         <Link to="s">
           <h3 className="titleSection">Categorias</h3>
         </Link>
-        <ExpansionPanelProxy items={categories} />
+        <ExpansionPanelProxy items={categories} handleCategory={_handleCategory}/>
       </div>
     </>
   );

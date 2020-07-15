@@ -61,17 +61,14 @@ export const Login = () => {
     let response = await LoginService(data);
 
     if (response && response.groups) {
+      clearForm()
       const rol = response.groups[0]
       if (rol == ADMIN) history.push('/clients/list');
       else history.push('/perro');
       enqueueSnackbar(response.detail, { variant: 'success' })
       return
     }
-    console.log('else');
     enqueueSnackbar(response.detail, { variant: 'error' })
-    
-
-    
   }
 
   const generateData = () => {
@@ -80,6 +77,10 @@ export const Login = () => {
     data.username = elements.username.value.trim()
     data.password = elements.password.value.trim()
     return data
+  };
+  const clearForm = () => {
+    setUsername("");
+    setPassword("");
   }
 
   return (

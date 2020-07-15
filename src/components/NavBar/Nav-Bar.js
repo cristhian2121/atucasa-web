@@ -62,7 +62,7 @@ export const NavBarComponent = ({ productsSelected }) => {
                 { openLogin && 
                   (<ul className="dropdown-menu multi multi1">
                     <Login />
-                    <li><Link to="product/create"><ArrowForwardIcon color="secondary"/> Registrate</Link></li>
+                    <li><Link to="client/create"><ArrowForwardIcon color="secondary"/> Registrate</Link></li>
                     <li>¿Olvidaste tu contraseña?</li>
                   </ul>)
                 }          

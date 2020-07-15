@@ -16,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ExpansionPanelProxy = ({ items }) => {
+export const ExpansionPanelProxy = (props) => {
   const [selected, useSelected] = useState();
   const classes = useStyles();
 
   const handleClick = (event, id) => {
     console.log(`click to panel ${id}`);
     useSelected(id);
+    props.handleCategory(id);
   };
 
   const itemSelected = (id, text = false) => {
@@ -40,7 +41,7 @@ export const ExpansionPanelProxy = ({ items }) => {
 
   return (
     <div className={classes.root}>
-      {items.map((item) => (
+      {props.items.map((item) => (
         <ExpansionPanel
           key={item.id}
           style={itemSelected(item.id)}

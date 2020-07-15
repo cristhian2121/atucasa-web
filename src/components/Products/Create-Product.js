@@ -156,16 +156,7 @@ export const CreateProduct = () => {
               validators={["maxStringLength:250"]}
               errorMessages={[`${FORM_MAX} 250`]}
               className="col-md-6"
-            />       
-            {/* <TextValidator
-              label="Email"
-              onChange={handleChange}
-              name="email"
-              value={email}
-              validators={["required", "isEmail"]}
-              errorMessages={[FORM_REQUIRED, FORM_EMAIL]}
-              className="col-md-6"
-            /> */}
+            />
             <TextValidator
               label="Unidades disponibles"
               onChange={(e) => setUnits(e.target.value)}
@@ -218,8 +209,8 @@ export const CreateProduct = () => {
               ))}
             </SelectValidator> */}
             <TextValidator
-              multiline
               label="Descripción"
+              multiline
               onChange={(e) => setDescription(e.target.value)}
               name="description"
               value={description}
