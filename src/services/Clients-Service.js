@@ -12,3 +12,7 @@ export const SaveClientServer = (data) => apiBussines.post('/user/', data)
 
 /* Mpethod for saving store */
 export const SaveStoreServer = (data) => apiBussines.post('/store/', data)
+
+/* request update client */
+export const updateClientService = (idClient, dataClient) =>
+  apiBussines.update(`/store/${idClient}`, dataClient);

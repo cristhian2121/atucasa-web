@@ -5,7 +5,7 @@ import MaterialTable from "material-table";
 import { TablePagination } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { zhCN } from "@material-ui/core/locale";
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from "@material-ui/core/Checkbox";
 
 // config theme
 const theme = createMuiTheme({}, zhCN);
@@ -30,6 +30,7 @@ export const TableGeneric = (props) => {
     props.actions.forEach((item) => {
       let eventEmitter;
       let icon;
+      let color = "primary";
       switch (item.type) {
         case "edit":
           eventEmitter = props.editItem;
@@ -48,7 +49,7 @@ export const TableGeneric = (props) => {
           icon = "file_copy";
           break;
         case "star":
-          eventEmitter = props.checkedItem;
+          eventEmitter = props.starClient;
           icon = "star";
           break;
         default:
@@ -59,6 +60,9 @@ export const TableGeneric = (props) => {
         tooltip: item.title,
         onClick: (event, rowData) => {
           eventEmitter(rowData);
+        },
+        iconProps: {
+          color: color,
         },
       };
       actionsAux.push(action);
@@ -84,25 +88,22 @@ export const TableGeneric = (props) => {
         data={props.data}
         actions={buildActions(props)}
         options={{
-          actionsColumnIndex: -1
+          actionsColumnIndex: 0,
         }}
         components={{
           Pagination: (propsPaginator) => (
-            console.log("propsPaginator: ", propsPaginator),
-            (
-              <ThemeProvider theme={theme}>
-                <TablePagination
-                  {...propsPaginator}
-                  rowsPerPage={pageForPage}
-                  // rowsPerPageOptions={[5]}
-                  onChangePage={handleChangePage}
-                  // backIconButtonText={backIconButtonText} // name button
-                  // nextIconButtonText={'Siguiente'} // text button
-                  count={count()}
-                  page={pageActual()}
-                />
-              </ThemeProvider>
-            )
+            <ThemeProvider theme={theme}>
+              <TablePagination
+                {...propsPaginator}
+                rowsPerPage={pageForPage}
+                // rowsPerPageOptions={[5]}
+                onChangePage={handleChangePage}
+                // backIconButtonText={backIconButtonText} // name button
+                // nextIconButtonText={'Siguiente'} // text button
+                count={count()}
+                page={pageActual()}
+              />
+            </ThemeProvider>
           ),
         }}
       />

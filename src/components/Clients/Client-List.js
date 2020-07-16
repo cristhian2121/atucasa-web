@@ -7,7 +7,7 @@ import { DetailClient } from "./Detail-Client";
 
 // Redux
 import { connect } from "react-redux";
-import { removeClient as RremoveClient } from "../../actions";
+import { removeClient, updateClient } from "../../actions";
 
 import {
   updateClientService,
@@ -16,7 +16,7 @@ import {
 
 export const ClientListComponent = (props) => {
   console.log("props: ", props);
-  const { clientsCount_, clients, RremoveClient } = props;
+  const { clientsCount_, clients, RremoveClient, RupdateClient, loader } = props;
   const [clients_, setclient_] = useState(clients);
   const [openModal, setopenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = React.useState(false);
@@ -32,6 +32,11 @@ export const ClientListComponent = (props) => {
       open: false,
     },
     columns: [
+      {
+        title: "destacado",
+        field: "star",
+        render: (rowData) => (rowData.star ? "Si" : "No"),
+      },
       { title: "Nombre", field: "name" },
       { title: "Ciudad", field: "city" },
       { title: "Teléfono", field: "phone" },
@@ -45,7 +50,6 @@ export const ClientListComponent = (props) => {
   };
 
   const handleChangePage = (forward) => {
-    console.log("forward: ", forward);
     // this.props.changePage(forward)
   };
 
@@ -71,7 +75,6 @@ export const ClientListComponent = (props) => {
   // Delete client
 
   const showConfirm = (client) => {
-    console.log("Quiere borrar");
     setclientSelected(client);
     setOpenConfirm(true);
   };
@@ -81,7 +84,6 @@ export const ClientListComponent = (props) => {
   };
 
   const deleteClient = async (client) => {
-    console.log("client: ", client);
     RremoveClient(client.id);
     setOpenConfirm(false);
   };
@@ -96,14 +98,20 @@ export const ClientListComponent = (props) => {
     setopenModal((openModal) => state);
   };
 
+  // Star client
+  const handleStarClient = (client) => {
+    client.star = !client.star;
+    RupdateClient(client);
+  };
+
   return (
     <div>
-      {!clients_.length ? (
+      {loader ? (
         <Loader />
       ) : (
         <>
           <div className="sub-title">
-            <span className="text">Lista de Clientes</span>
+            <span className="text">Listado de Clientes</span>
           </div>
           <TableGeneric
             title=""
@@ -113,6 +121,7 @@ export const ClientListComponent = (props) => {
             // editItem={props.selectUpdate}
             deleteItem={showConfirm}
             showItem={showDetail}
+            starClient={handleStarClient}
             // duplicateItem={props.duplicateClient}
             changePage={handleChangePage}
             count={clients_.length}
@@ -145,7 +154,8 @@ const mapStateToProps = (reducers) => {
 };
 
 const mapDispatchToProps = {
-  RremoveClient,
+  RremoveClient: removeClient,
+  RupdateClient: updateClient,
 };
 
 const ClientList = connect(

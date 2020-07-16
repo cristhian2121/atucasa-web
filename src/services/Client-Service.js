@@ -6,8 +6,8 @@ export const getClientsService = async () => apiBussines.get(`/store`);
 
 /* request update client */
 export const updateClientService = (idClient, dataClient) =>
-  apiBussines.update(`/store/${idClient}`, dataClient);
+  apiBussines.put(`/store/${idClient}/`, dataClient);
 
 /* request delete client */
 export const deleteClientService = (idClient) =>
-  apiBussines.delete(`/store/${idClient}`);
+  apiBussines.delete(`/store/${idClient}/`);
