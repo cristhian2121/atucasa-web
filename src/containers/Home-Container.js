@@ -4,8 +4,8 @@ import Icon from '@material-ui/core/Icon';
 import AccountCircleOutlinedIcon from '@material-ui/icons/PersonOutlineTwoTone';
 import TextField from '@material-ui/core/TextField';
 
-import { ListProducts, NavBar, CategoryBar, SaleList, BarStartClient } from "../components";
-import { GetProductCategoryService } from "../services/Products-Service"
+import { ListProducts, NavBar, CategoryBar, SaleList, BarStartClient, Loader } from "../components";
+import { GetProductService, GetProductCategoryService } from "../services/Products-Service"
 
 // import '../styles/base.scss'
 
@@ -35,8 +35,28 @@ export class HomeContainer extends PureComponent {
 
     this.state = {
       products: [],
+      loader: true
     };
     this.getCategoryProduct = this.getCategoryProduct.bind(this);
+  };
+  componentDidMount () {
+    this.getProducts();
+  }
+
+  async getProducts () {
+    this.setState({loader:false})
+    try {
+      // Request of all products
+      let response = await GetProductService();
+      let resp = response.data;
+      
+      this.setState({
+        products: resp
+      });
+    } catch (e) {
+      console.log("error getproducts product: ", e);
+    }
+    this.setState({loader:true})
   };
 
   async getCategoryProduct (idCategoryProduct) {
@@ -46,7 +66,7 @@ export class HomeContainer extends PureComponent {
       let resp = response.data;
       this.setState({
         products: resp
-      })
+      });
     } catch (e) {
       console.log("error get product for categories: ", e);
     }
@@ -54,6 +74,7 @@ export class HomeContainer extends PureComponent {
   render() {
     return (
       <>
+        <Loader hidden={this.state.loader} />
         <div className="col-12 px-0 d-flex flex-wrap pt-2">
           <div className="col-md-3 col-sm-12">
             <CategoryBar handleCategory={this.getCategoryProduct}/>

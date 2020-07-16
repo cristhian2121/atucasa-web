@@ -30,26 +30,6 @@ const ListProductsComponent = (props) => {
     title: "ply with Goku",
     subheader: "Figure in proportion 1x1",
   };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  const getProducts = async () => {
-    try {
-      // Request of products for client or user autenticate
-      setLoader(false);
-      let response = !storeCurrent
-        ? await GetProductStoreService(storeCurrent)
-        : await GetProductService();
-      let resp = response.data;
-      console.log("resp:  ** ", resp);
-      setProductList(resp);
-      setLoader(true);
-    } catch (e) {
-      console.log("error create product: ", e);
-    }
-  };
   const deleteProduct = async (id) => {
     /* Request for deleting product, this is enable for client */
     if (storeCurrent) {
