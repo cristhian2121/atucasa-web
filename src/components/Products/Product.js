@@ -58,7 +58,7 @@ const ProductComponent = (props) => {
               className="btn btn-danger my-cart-btn my-cart-b"
               onClick={(e) => handleAddProduct(e, product)}
             >
-              Add to Cart
+              Agregar
             </button>
           </div>
         </div>
