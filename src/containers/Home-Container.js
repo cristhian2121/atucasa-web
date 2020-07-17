@@ -1,67 +1,99 @@
 import React, { PureComponent } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
-import AccountCircleOutlinedIcon from '@material-ui/icons/PersonOutlineTwoTone';
-import TextField from '@material-ui/core/TextField';
+import Icon from "@material-ui/core/Icon";
+import AccountCircleOutlinedIcon from "@material-ui/icons/PersonOutlineTwoTone";
+import TextField from "@material-ui/core/TextField";
 
-import { ListProducts, NavBar, CategoryBar, SaleList, BarStartClient } from "../components";
-import { GetProductCategoryService } from "../services/Products-Service"
+import {
+  ListProducts,
+  NavBar,
+  CategoryBar,
+  SaleList,
+  BarStartClient,
+} from "../components";
+import {
+  GetProductCategoryService,
+  getCategoryProductsService,
+} from "../services/Products-Service";
+import { ProductByCategory } from "./Product-By-Category";
 
 // import '../styles/base.scss'
-
-
 
 const Nav = () => {
   return (
     <div>
-    	<div className="header">
-			<div className="container col-12">			
-				<div className="logo col-md-4 col-sm-12">
-					<h1 ><a href="index.html">Nuestro Mall <span>a tu casa</span></a></h1>
-				</div>
-				<div className="head-t nav-bar-items col-md-8 col-sm-12">
-					<NavBar />	
-				</div>
-			</div>
-		</div>
-		
+      <div className="header">
+        <div className="container col-12">
+          <div className="logo col-md-4 col-sm-12">
+            <h1>
+              <a href="index.html">
+                Nuestro Mall <span>a tu casa</span>
+              </a>
+            </h1>
+          </div>
+          <div className="head-t nav-bar-items col-md-8 col-sm-12">
+            <NavBar />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export class HomeContainer extends PureComponent {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       products: [],
+      categories: [],
     };
     this.getCategoryProduct = this.getCategoryProduct.bind(this);
-  };
+    this.getCategories = this.getCategories.bind(this);
+  }
 
-  async getCategoryProduct (idCategoryProduct) {
+  async componentDidMount() {
+    await this.getCategories();
+  }
+
+  async getCategories() {
+    let dataRaw;
+    try {
+      dataRaw = await getCategoryProductsService();
+    } catch (err) {
+      console.log("err: ", err);
+    }
+    if (dataRaw && dataRaw.status) {
+      this.setState({
+        categories: dataRaw.data,
+      });
+    }
+  }
+
+  async getCategoryProduct(idCategoryProduct) {
     try {
       // Request of products for categories
-      let response = await GetProductCategoryService(idCategoryProduct)
+      let response = await GetProductCategoryService(idCategoryProduct);
       let resp = response.data;
       this.setState({
-        products: resp
-      })
+        products: resp,
+      });
     } catch (e) {
       console.log("error get product for categories: ", e);
     }
-  };
+  }
   render() {
     return (
       <>
         <div className="col-12 px-0 d-flex flex-wrap pt-2">
           <div className="col-md-3 col-sm-12">
-            <CategoryBar handleCategory={this.getCategoryProduct}/>
+            <CategoryBar handleCategory={this.getCategoryProduct} />
           </div>
           <div className="col-md-9 col-sm-12">
             <SaleList />
             <BarStartClient />
-            <ListProducts productList={this.state.products}/>
+            <ListProducts productList={this.state.products} />
+            <ProductByCategory categories={this.state.categories} />
           </div>
         </div>
       </>

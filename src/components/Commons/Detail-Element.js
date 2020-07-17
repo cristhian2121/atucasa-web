@@ -11,7 +11,7 @@ export const ElementDetail = ({ image, title, subTitle, Content, price }) => {
                 <img
                   src={image}
                   data-src="images/si-1.jpg"
-                  alt=""
+                  alt={title}
                   className="img-responsive"
                 />
               </div>
@@ -79,7 +79,7 @@ export const ElementDetail = ({ image, title, subTitle, Content, price }) => {
                     data-quantity="1"
                     data-image="images/si.jpg"
                   >
-                    Add to Cart
+                    Agregar
                   </button>
                 </div>
               )}
