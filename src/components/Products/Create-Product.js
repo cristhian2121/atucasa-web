@@ -99,11 +99,11 @@ export const CreateProduct = () => {
 
   return (
     <>
-      <div class="banner-top">
-        <div class="container">
+      <div className="banner-top">
+        <div className="container">
           <h3 >Agregar Producto</h3>
           <h4><Link to="/">Inicio</Link><label>/</label>Agregar producto</h4>
-          <div class="clearfix"> </div>
+          <div className="clearfix"> </div>
         </div>
       </div>
       <div className="container col-12 d-flex">

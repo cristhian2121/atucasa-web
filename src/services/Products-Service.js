@@ -10,6 +10,7 @@ export const GetProductService = (idStore) => apiBussines.get(`/product/`);
 
 /* Request for get products for store*/
 export const GetProductStoreService = (idStore) => apiBussines.get(`/product/?store=${idStore}`)
+
 /* Request get products for category */
 export const GetProductCategoryService = (idCategory) => apiBussines.get(`/product/?category_product=${idCategory}`)
 

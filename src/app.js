@@ -30,7 +30,7 @@ export const App = () => (
         <Route exact path="/client/create/" component={CreateClientContainer} />
         <Route
           exact
-          path="/category/products"
+          path="/category/products/:id"
           component={CategoryProductContainer}
         />
         <Route component={NotFound} />

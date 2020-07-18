@@ -3,9 +3,10 @@ import { getCategoryProductsService } from "../../services/Products-Service";
 
 import { ExpansionPanelProxy } from "../../proxyes/Expansion-panel";
 import style from "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export const CategoryBar = (props) => {
+  let history = useHistory();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -24,7 +25,9 @@ export const CategoryBar = (props) => {
       setCategories(dataRaw.data);
     }
   };
-  const _handleCategory = (idCategory) => props.handleCategory(idCategory)
+  const _handleCategory = (idCategory) => {
+    history.replace(`/category/products/${idCategory}`)
+  }
 
   return (
     <>
