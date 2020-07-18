@@ -17,38 +17,18 @@ import {
 import { productMock } from "../../mocks/product";
 
 const ListProductsComponent = (props) => {
-  console.log('props: ', props);
+  console.log("props: ", props);
   const storeCurrent = window.localStorage
     ? window.localStorage.getItem("store")
     : null;
   const [productList, setProductList] = useState([]);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const products = [1, 2, 3, 4, 5];
   const headers = {
     avatar: "KH",
     icon: "",
     title: "ply with Goku",
     subheader: "Figure in proportion 1x1",
-  };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  const getProducts = async () => {
-    try {
-      // Request of products for client or user autenticate
-      setLoader(false);
-      let response = !storeCurrent
-        ? await GetProductStoreService(storeCurrent)
-        : await GetProductService();
-      let resp = response.data;
-      console.log("resp:  ** ", resp);
-      setProductList(resp);
-      setLoader(true);
-    } catch (e) {
-      console.log("error create product: ", e);
-    }
   };
   const deleteProduct = async (id) => {
     /* Request for deleting product, this is enable for client */
@@ -68,8 +48,9 @@ const ListProductsComponent = (props) => {
     let products = productList.filter((item) => item.id != id);
     setProductList(products);
   };
-  
-  const validateSelected = (id) => !!props.productsSelected.find((_) => _ == id);
+
+  const validateSelected = (id) =>
+    !!props.productsSelected.find((_) => _ == id);
   return (
     <>
       <div className="col-12 px-0 d-flex flex-wrap">

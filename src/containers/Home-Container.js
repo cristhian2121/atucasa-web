@@ -4,18 +4,20 @@ import Icon from "@material-ui/core/Icon";
 import AccountCircleOutlinedIcon from "@material-ui/icons/PersonOutlineTwoTone";
 import TextField from "@material-ui/core/TextField";
 
+import { ProductByCategory } from "../components";
 import {
   ListProducts,
   NavBar,
   CategoryBar,
   SaleList,
   BarStartClient,
+  Loader,
 } from "../components";
 import {
+  GetProductService,
   GetProductCategoryService,
   getCategoryProductsService,
 } from "../services/Products-Service";
-import { ProductByCategory } from "./Product-By-Category";
 
 // import '../styles/base.scss'
 
@@ -45,10 +47,9 @@ export class HomeContainer extends PureComponent {
     super(props);
 
     this.state = {
-      products: [],
       categories: [],
+      loader: true,
     };
-    this.getCategoryProduct = this.getCategoryProduct.bind(this);
     this.getCategories = this.getCategories.bind(this);
   }
 
@@ -66,36 +67,41 @@ export class HomeContainer extends PureComponent {
     if (dataRaw && dataRaw.status) {
       this.setState({
         categories: dataRaw.data,
+        loader: false,
       });
     }
   }
 
-  async getCategoryProduct(idCategoryProduct) {
-    try {
-      // Request of products for categories
-      let response = await GetProductCategoryService(idCategoryProduct);
-      let resp = response.data;
-      this.setState({
-        products: resp,
-      });
-    } catch (e) {
-      console.log("error get product for categories: ", e);
-    }
-  }
+  // async getCategoryProduct(idCategoryProduct) {
+  //   try {
+  //     // Request of products for categories
+  //     let response = await GetProductCategoryService(idCategoryProduct);
+  //     let resp = response.data;
+  //     this.setState({
+  //       products: resp,
+  //     });
+  //   } catch (e) {
+  //     console.log("error get product for categories: ", e);
+  //   }
+  // }
+
   render() {
     return (
       <>
-        <div className="col-12 px-0 d-flex flex-wrap pt-2">
-          <div className="col-md-3 col-sm-12">
-            <CategoryBar handleCategory={this.getCategoryProduct} />
+        {this.state.loader ? (
+          <Loader hidden={!this.state.loader} />
+        ) : (
+          <div className="col-12 px-0 d-flex flex-wrap pt-2">
+            <div className="col-md-3 col-sm-12">
+              <CategoryBar handleCategory={this.getCategoryProduct} />
+            </div>
+            <div className="col-md-9 col-sm-12">
+              <SaleList />
+              <BarStartClient />
+              <ProductByCategory categories={this.state.categories} />
+            </div>
           </div>
-          <div className="col-md-9 col-sm-12">
-            <SaleList />
-            <BarStartClient />
-            <ListProducts productList={this.state.products} />
-            <ProductByCategory categories={this.state.categories} />
-          </div>
-        </div>
+        )}
       </>
     );
   }

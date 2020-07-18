@@ -7,6 +7,7 @@ import {
 } from "react-material-ui-form-validator";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useSnackbar } from 'notistack';
 
 import { SaveProductService, getCategoryProductsService } from "../../services/Products-Service"
 
@@ -29,6 +30,7 @@ export const CreateProduct = () => {
   const [image, setImage] = useState("");
   const form = useRef("");
   const [categories, setCategories] = useState([])
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect (() => {
     /* Method mounted in functions */
@@ -55,6 +57,7 @@ export const CreateProduct = () => {
     try {
       let response = await SaveProductService(data)
       clearForm()
+      enqueueSnackbar('El product se creó correctamente.', { variant: 'error' })
     } catch (e) { console.log('error create product', e) }
   };
   const getCategoryProducts = async () => {
@@ -88,7 +91,7 @@ export const CreateProduct = () => {
       }
     }
     data['category_product'] = [data['category_product']]
-    data['discount_porcentual'] = !data['discount_porcentual'] && 0
+    data['discount_porcentual'] = !data['discount_porcentual'] ? 0:data['discount_porcentual']
     data['store'] = 1
     
     return data

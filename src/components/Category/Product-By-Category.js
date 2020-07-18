@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import { GetProductCategoryService } from "../services/Products-Service";
+import { GetProductCategoryService } from "../../services/Products-Service";
 
-import { BarProduct } from "../components";
+import { BarProduct } from "../Products/Bar-Product";
 
 export const ProductByCategory = ({ categories }) => {  
   const [productsCategory, setproductsCategory] = useState([]);

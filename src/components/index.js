@@ -11,6 +11,7 @@ import { CreateShop } from "./Clients/Create-Shop";
 import { DetailProduct } from "./Products/Detail-Product";
 import { BarStartClient } from "./Clients/Bar-Star-Client";
 import { BarProduct } from "./Products/Bar-Product";
+import { ProductByCategory } from "./Category/Product-By-Category";
 
 export {
   ListProducts,
@@ -25,5 +26,6 @@ export {
   CreateShop,
   DetailProduct,
   BarStartClient,
-  BarProduct
+  BarProduct,
+  ProductByCategory
 };

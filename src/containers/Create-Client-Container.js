@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { CreateClient, CreateShop } from "../components";
 import { SaveClientServer, SaveStoreServer } from "../services/Clients-Service"
 
-export const ClientContainer = () => {
+export const CreateClientContainer = () => {
   let history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const [fistStep, setFirstStep] = useState(true)
