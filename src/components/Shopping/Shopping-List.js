@@ -8,6 +8,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { removeProductToCar } from "../../actions";
 //style
 import "./style.scss";
+import { ButtonAdd } from "../../proxyes";
 
 export const ShoppingListComponent = ({
   products,
@@ -15,6 +16,7 @@ export const ShoppingListComponent = ({
   actionRemoveProductFromCar,
 }) => {
   const [loader, setloader] = useState(true);
+  const [total, settotal] = useState(0);
   useEffect(() => {}, []);
 
   const handleAddProductToCar = (product) => {
@@ -28,6 +30,27 @@ export const ShoppingListComponent = ({
     product.number = 0;
     actionRemoveProductFromCar(product);
   };
+  const reduceValues = (lastValue, currentValue) => {
+    let value = lastValue;
+    if (isNaN(lastValue)) value = lastValue.number;
+    return value + currentValue.number;
+  };
+  const sumTotal = () => {
+    setTimeout(() => {
+      const $totals = document.querySelectorAll(".shopping-table-total");
+      let subTotal = 0;
+      if (!$totals.length) return 0;
+      $totals.forEach(($label) => {
+        const text = $label.innerText;
+        subTotal += text ? parseFloat(text) : 0;
+      });
+      console.log("subTotal: ", subTotal);
+      settotal(subTotal);
+    }, 500);
+  };
+
+  const payProducts = () => {};
+
   return (
     <>
       <div className="container__shopping">
@@ -55,7 +78,9 @@ export const ShoppingListComponent = ({
                   removeProductToCar={handleRemoveProductToCar}
                 />
               </td>
-              <td>{product.price * product.number}</td>
+              <td className="shopping-table-total">
+                {product.price * product.number}
+              </td>
               <td onClick={() => handleDeleteProduct(product)}>
                 <IconButton aria-label="delete">
                   <DeleteIcon />
@@ -64,6 +89,18 @@ export const ShoppingListComponent = ({
             </tr>
           ))}
         </table>
+        {products.length && (
+          <div>
+            <div>
+              Cantidad de articulos:
+              {products.reduce(reduceValues)}
+              <span>Total: {total}</span>
+            </div>
+            <div>
+              <ButtonAdd text={"Pagar"} clickEvent={payProducts} />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

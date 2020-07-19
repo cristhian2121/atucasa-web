@@ -3,7 +3,6 @@ import { Loader, ShoppingList } from "../components";
 import { connect } from "react-redux";
 
 const ShoppingContainerComponent = ({ productsSelected }) => {
-  console.log("productsSelected: ", productsSelected);
   const [loader, setloader] = useState(true);
   useEffect(() => {}, []);
 
