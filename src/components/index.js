@@ -12,6 +12,7 @@ import { DetailProduct } from "./Products/Detail-Product";
 import { BarStartClient } from "./Clients/Bar-Star-Client";
 import { BarProduct } from "./Products/Bar-Product";
 import { ProductByCategory } from "./Category/Product-By-Category";
+import { ShoppingList } from "./Shopping/Shopping-List";
 
 export {
   ListProducts,
@@ -27,5 +28,6 @@ export {
   DetailProduct,
   BarStartClient,
   BarProduct,
-  ProductByCategory
+  ProductByCategory,
+  ShoppingList
 };
