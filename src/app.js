@@ -11,8 +11,8 @@ import {
   CreateClientContainer,
   ClientContainerList,
   CategoryProductContainer,
-  ShoppingContainer,
-  StoreContainer 
+  StoreContainer,
+  ShoppingContainer
 } from "./containers";
 import { NotFound, CreateProduct } from "./components";
 import { NavBar } from "./components";
