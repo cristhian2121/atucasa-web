@@ -17,7 +17,19 @@ export const ShoppingListComponent = ({
 }) => {
   const [loader, setloader] = useState(true);
   const [total, settotal] = useState(0);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setTimeout(() => {
+      const $totals = document.querySelectorAll(".shopping-table-total");
+      let subTotal = 0;
+      if (!$totals.length) return 0;
+      $totals.forEach(($label) => {
+        const text = $label.innerText;
+        subTotal += text ? parseFloat(text) : 0;
+      });
+      console.log("subTotal: ", subTotal);
+      settotal(subTotal);
+    }, 500);
+  }, [products]);
 
   const handleAddProductToCar = (product) => {
     // actionAddProductToCar(product);
@@ -90,8 +102,8 @@ export const ShoppingListComponent = ({
           ))}
         </table>
         {products.length && (
-          <div>
-            <div>
+          <div className="col-12 d-flex justify-content-end align-items-center">
+            <div className="total__product">
               Cantidad de articulos:
               {products.reduce(reduceValues)}
               <span>Total: {total}</span>
