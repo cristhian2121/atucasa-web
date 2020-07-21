@@ -4,7 +4,6 @@ import { GetProductStoreService } from "../services/Products-Service";
 import { useParams } from "react-router-dom";
 
 export const StoreContainer = (props) => {
-  console.log('props***********h: ', props.location);
   // const {location} = props
   const [products, setproducts] = useState([]);
   const { id } = useParams();
@@ -52,7 +51,9 @@ export const StoreContainer = (props) => {
           <div className="clearfix"> </div>
         </div>
       </div>
-      <ListProducts productList={products} />
+      <div className="list-products-view">
+        <ListProducts productList={products} />
+      </div>
     </>
   );
 };
