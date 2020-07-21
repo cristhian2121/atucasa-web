@@ -9,7 +9,7 @@ import { CardProxy } from "../../proxyes";
 import { DetailProduct } from "./Detail-Product";
 
 const ProductComponent = (props) => {
-  const { product, selected } = props;
+  const { product, selected, seeMore } = props;
   const quantityProduct = product && product.number ? product.number : 0;
 
   const [openDetailModal, setopenDetailModal] = useState(false);
@@ -31,15 +31,14 @@ const ProductComponent = (props) => {
 
   return (
     <>
-      <div className="">
-        <div className="">
-          <div onClick={openDetail}>
+      <div className="product--description row">
+          <div onClick={openDetail} className="img-product">
             <img
               className="kh_img"
-              src={product.url_image}
+              src={product.url_image || product.image}
               height="130px"
               width="95%"
-              alt=""
+              alt="Propiedad de atucasa"
             />
             {/* <div className="offer">
             <p>
@@ -47,33 +46,41 @@ const ProductComponent = (props) => {
             </p>
           </div> */}
           </div>
-          <div className="mid-1">
-            <div className="women">
-              <h6>
-                <a href="single.html">{product.name}</a>(
-                {product.presentatio || "1 Kg"})
-              </h6>
-            </div>
-            <div className="mid-2">
-              <p>
-                {/* <label>$4.00</label> */}
-                <em className="item_price">$ {product.price}</em>
-              </p>
-              <div className="block">
-                <div className="starbox small ghosting"> </div>
+          {!seeMore ? (
+            <div className="mid-1">
+              <div className="women">
+                <h6>
+                  <a href="single.html">{product.name}</a>(
+                  {product.presentatio || "1 Kg"})
+                </h6>
               </div>
-              <div className="clearfix"></div>
+              <div className="mid-2">
+                <p>
+                  {/* <label>$4.00</label> */}
+                  <em className="item_price">$ {product.price}</em>
+                </p>
+                <div className="block">
+                  <div className="starbox small ghosting"> </div>
+                </div>
+                <div className="clearfix"></div>
+              </div>
+              <div className="add">
+                <button
+                  className="btn btn-danger my-cart-btn my-cart-b"
+                  onClick={(e) => handleAddProduct(e, product)}
+                >
+                  Agregar
+                </button>
+              </div>
             </div>
-            <div className="add">
-              <button
-                className="btn btn-danger my-cart-btn my-cart-b"
-                onClick={(e) => handleAddProduct(e, product)}
-              >
-                Agregar
-              </button>
-            </div>
-          </div>
-        </div>
+          ) : (
+            <button 
+              className="btn btn-danger my-cart-btn my-cart-b"
+              onClick={openDetail}
+            >
+              Ver más
+            </button>
+          )}
       </div>
       {openDetailModal && 
         <DetailProduct

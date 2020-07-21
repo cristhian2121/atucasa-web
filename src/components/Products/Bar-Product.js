@@ -33,7 +33,7 @@ export const BarProduct = ({ titleSection, products_ }) => {
           // animationSpeed={3000}
           infinite
           slides={products_.map((product) => (
-            <div>
+            <div className="product-view row">
               <Product product={product} />
             </div>
           ))}
