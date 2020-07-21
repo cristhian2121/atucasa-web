@@ -3,6 +3,8 @@ import { Loader, ListProducts } from "../components";
 import { GetProductCategoryService, CategoryByIdService } from "../services";
 import { useParams } from "react-router-dom";
 
+import { Link } from "react-router-dom";
+
 export const CategoryProductContainer = () => {
   const [products, setproducts] = useState([]);
   const [loader, setloader] = useState(true);
@@ -50,8 +52,17 @@ export const CategoryProductContainer = () => {
         <Loader hidden={!loader} />
       ) : (
         <div>
-          <h3 className="titleSection">{category.name}</h3>
-          <ListProducts productList={products} />
+          <div className="banner-top">
+            <div className="container">
+              <h3 >{category.name}</h3>
+              <h4><Link to="/">Inicio</Link><label>/</label>{category.name}</h4>
+              <div className="clearfix"> </div>
+            </div>
+          </div>
+          {/* <h3 className="titleSection"></h3> */}
+          <div className="list-products-view">
+            <ListProducts productList={products} />
+          </div>
         </div>
       )}
     </>

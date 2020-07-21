@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 import "../../styles/variables.scss";
+import './list-product.scss'
 
 import { Product, IndividualProduct } from "./Product";
 
@@ -54,7 +55,7 @@ const ListProductsComponent = (props) => {
       <div className="col-12 px-0 d-flex flex-wrap">
         {props.productList.map((product) => (
           <div
-            className="col-12 product-search"
+            className="product-search"
             key={product.id}
           >
             <Product

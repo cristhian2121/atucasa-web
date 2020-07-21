@@ -14,7 +14,7 @@ import {
   StoreContainer,
   ShoppingContainer
 } from "./containers";
-import { NotFound, CreateProduct } from "./components";
+import { NotFound, CreateProduct, ListProductAdmin } from "./components";
 import { NavBar } from "./components";
 import { CreateClient } from "./components/Clients/Create-Client";
 
@@ -36,11 +36,8 @@ export const App = () => (
           path="/category/products/:id"
           component={CategoryProductContainer}
         />
-        <Route
-          exact
-          path="/store/products/:id"
-          component={StoreContainer}
-        />
+        <Route exact path="/store/products/:id" component={StoreContainer} />
+        <Route exact path="/product" component={ListProductAdmin} />
         <Route component={NotFound} />
       </Switch>
     </HashRouter>
