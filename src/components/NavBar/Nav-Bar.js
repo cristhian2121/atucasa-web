@@ -9,15 +9,26 @@ import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import AddCircleTwoToneIcon from '@material-ui/icons/AddCircleTwoTone';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import CancelRoundedIcon from '@material-ui/icons/CancelRounded';
 import "./style.scss";
 
 import {Login} from "../Login/Login"
+import {Loader} from "../Commons/Loader";
+
+import { Product, IndividualProduct } from "../Products/Product";
+
+import {GetProductNameService} from "../../services/Products-Service"
+import { DeviceSignalCellularNull } from "material-ui/svg-icons";
 
 export const NavBarComponent = (props) => {
   const [openLogin, setOpenLogin] = useState(false)
   const [openAdmin, setOpenAdmin] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
-  const [searchProduct, setSearchProduct] = useState("");
+  const [searchProduct, setSearchProduct] = useState("")
+  const [listProducts, setListProducts] = useState([])
+  const [loadingSP, setLoadingSP] = useState(false)
   let history = useHistory();
 
   const redirectToShop = () => {
@@ -36,10 +47,27 @@ export const NavBarComponent = (props) => {
     }, [])
     
   });
-  const handleSearch = () => {
+  const handleSearch = async (event) => {
+    event.preventDefault()
     if (searchProduct.length > 0) {
-      props.searchProduct(searchProduct)
+      setLoadingSP(true)
+      setOpenSearch(true)
+      try {
+        let response = await GetProductNameService(searchProduct)
+        setListProducts(response.data)
+      }
+      catch (e) {
+        setListProducts([])
+        console.log('error search products:', e.response)
+      }
+      setLoadingSP(false)
     }
+  };
+  const handleCancelSearch = () => {
+    setOpenSearch(false)
+    setSearchProduct([])
+    setListProducts([])
+    setLoadingSP(false)
   }
 
   return (
@@ -47,40 +75,60 @@ export const NavBarComponent = (props) => {
       <div>
         <div className="header">
         <div className="container col-12">			
-          <div className="logo col-md-4 col-sm-12">
+          <div className="logo col-lg-3 col-md-12 col-sm-12">
             <h1 ><Link to="/">Nuestro Mall <span>a tu casa</span></Link></h1>
           </div>
-          <div className="head-t nav-bar-items col-md-8 col-sm-12">
-            <ul className="card">
-              <li clasName="dropdown">
-                <div className="search-form">
-                  <TextField
-                    id="outlined-basic"
+          <div className="head-t nav-bar-items col-lg-6 col-md-12 col-sm-12">
+            <ul className="card ">
+              <li className="dropdown search-drop">
+                <div className="">
+                  <TextField                                      
+                    id="outlined-search"
+                    type="search"
                     variant="outlined"
-                    placeholder="Search..."
                     name="searchProduct"
                     value={searchProduct}
                     onChange={(e) => setSearchProduct(e.target.value)}
                     onKeyPress={(event) => {
                       (event.key === "Enter") && handleSearch(event)
                     }}
+                    className="col-12"
+                    InputProps={{
+                      startAdornment: <InputAdornment onClick={handleSearch} className="btn-search" position="start"><SearchIcon /></InputAdornment>,
+                      endAdornment: openSearch && <InputAdornment onClick={handleCancelSearch} position="end"><CancelRoundedIcon /></InputAdornment>,
+                    }}
                   />
-                  <button
-                    className="btn btn-outline-success my-2 my-sm-0"
-                    onClick={handleSearch}
-                  >
-                    <SearchIcon/>
-                  </button>
                 </div>
-
-                { openSearch && 
-                  (<ul className="dropdown-menu multi multi1">
-                    <Login />
-                    <li><Link to="client/create"><ArrowForwardIcon color="secondary"/> Registrate</Link></li>
-                    <li>¿Olvidaste tu contraseña?</li>
-                  </ul>)
-                } 		
+                { openSearch && (
+                  <ul className="dropdown-menu multi serch-nav multi1">
+                    {listProducts.length>0
+                    ?
+                    listProducts.map((product) => (
+                      <div
+                        className="col-12 py-1 product-search" 
+                        key={product.id}
+                      >
+                        <div className="product-view product-view-nav">
+                          <Product product={product} />
+                        </div>
+                      </div>
+                    ))
+                    :
+                    (
+                      loadingSP ?
+                      <Loader hidden={!loadingSP} />
+                      :
+                      'No se encontraron resultados'
+                    )
+                    }
+                  </ul>
+                )}
+                  
               </li>
+            </ul>	
+          </div>
+          <div className="head-t nav-bar-items col-lg-3 col-md-12 col-sm-12">
+            <ul className="card">
               <li className="dropdown">
                 <div className="cursort--point" onClick={() => setOpenLogin(!openLogin)}>
                   <AccountCircleOutlinedIcon color="primary"/> Mi cuenta

@@ -11,6 +11,7 @@ import {
   CreateClientContainer,
   ClientContainerList,
   CategoryProductContainer,
+  StoreContainer,
   ShoppingContainer
 } from "./containers";
 import { NotFound, CreateProduct } from "./components";
@@ -34,6 +35,11 @@ export const App = () => (
           exact
           path="/category/products/:id"
           component={CategoryProductContainer}
+        />
+        <Route
+          exact
+          path="/store/products/:id"
+          component={StoreContainer}
         />
         <Route component={NotFound} />
       </Switch>

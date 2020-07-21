@@ -56,7 +56,7 @@ const ListProductsComponent = (props) => {
       <div className="col-12 px-0 d-flex flex-wrap">
         {props.productList.map((product) => (
           <div
-            className="col-lg-3 col-md-4 col-sm-6 col-12 py-2"
+            className="col-12 product-search"
             key={product.id}
           >
             <Product

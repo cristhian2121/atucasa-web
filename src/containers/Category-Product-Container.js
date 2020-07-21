@@ -24,6 +24,22 @@ export const CategoryProductContainer = () => {
     setloader(false);
   };
 
+  // const getServiceProducts = async (sourceData, id) => {
+  //   // let sourceData;
+  //   try {
+  //     switch (sourceData) {
+  //       case "productCategory":
+  //         return GetProductCategoryService(id);
+  //         break;
+  //       case "productsStore":
+  //         return GetProductStoreService(id)
+  //         break;
+  //     }
+  //   } catch (error) {
+  //     console.log('error: ', error);
+  //   }
+  // }
+
   useEffect(() => {
     getProducts();
   }, []);
