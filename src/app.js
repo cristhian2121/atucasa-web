@@ -11,7 +11,8 @@ import {
   CreateClientContainer,
   ClientContainerList,
   CategoryProductContainer,
-  StoreContainer 
+  StoreContainer,
+  ShoppingContainer
 } from "./containers";
 import { NotFound, CreateProduct } from "./components";
 import { NavBar } from "./components";
@@ -29,6 +30,7 @@ export const App = () => (
         <Route exact path="/client" component={ClientContainerList} />
         <Route exact path="/product/create/" component={CreateProduct} />
         <Route exact path="/client/create/" component={CreateClientContainer} />
+        <Route exact path="/shopping" component={ShoppingContainer} />
         <Route
           exact
           path="/category/products/:id"

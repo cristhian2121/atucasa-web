@@ -42,6 +42,7 @@ export const NavBarComponent = (props) => {
     document.addEventListener('click', ({target}) => {
       if (!target.closest('.dropdown')){
         setOpenLogin(false)
+        setOpenAdmin(false)
       }
     }, [])
     
