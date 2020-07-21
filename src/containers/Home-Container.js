@@ -17,6 +17,8 @@ import {
   GetProductService,
   GetProductCategoryService,
   getCategoryProductsService,
+  GetSailProductsService,
+  GetStarStoreService,
 } from "../services/Products-Service";
 
 // import '../styles/base.scss'
@@ -49,12 +51,19 @@ export class HomeContainer extends PureComponent {
     this.state = {
       categories: [],
       loader: true,
+      saleProducts: [],
+      loaderSale: true,
+      starStore: [],
+      loaderStar: true,
+      openDetailModal: false,
     };
     this.getCategories = this.getCategories.bind(this);
   }
 
   async componentDidMount() {
     await this.getCategories();
+    await this.getSaleProducts()
+    await this.getStarStore()
   }
 
   async getCategories() {
@@ -70,7 +79,38 @@ export class HomeContainer extends PureComponent {
         loader: false,
       });
     }
-  }
+  };
+  async getSaleProducts () {
+    let dataSailProductos;
+    let response;
+    try {
+      response = await GetSailProductsService()
+      dataSailProductos = response.data
+    }
+    catch (e) {console.log('error get sale procuts: ', e)}
+
+    if (response && response.status) {
+      this.setState({
+        saleProducts: dataSailProductos,
+        loaderSale: false
+      })
+    }
+  };
+  async getStarStore () {
+    let dataStarStore;
+    let response;
+    try{
+      response = await GetStarStoreService()
+      dataStarStore = response.data
+    }
+    catch (e) {console.log('error get star store: ', e)}
+    if (response && response.status) {
+      this.setState({
+        starStore: dataStarStore,
+        loaderStar: false
+      })
+    }
+  };
 
   // async getCategoryProduct(idCategoryProduct) {
   //   try {
@@ -92,12 +132,20 @@ export class HomeContainer extends PureComponent {
           <Loader hidden={!this.state.loader} />
         ) : (
           <div className="col-12 px-0 d-flex flex-wrap pt-2">
-            <div className="col-md-3 col-sm-12">
-              <CategoryBar handleCategory={this.getCategoryProduct} />
+            <div className="col-md-3 col-sm-12">              
+                <CategoryBar handleCategory={this.getCategoryProduct} />              
             </div>
             <div className="col-md-9 col-sm-12">
-              <SaleList />
-              <BarStartClient />
+              {this.state.loaderSale ? (
+                <Loader hidden={!this.state.loaderSale} />
+              ) : (
+                <SaleList saleProducts={this.state.saleProducts} />
+              )}
+              {this.state.loaderStar ? (
+                <Loader hidden={!this.state.loaderStar} />
+              ) : (
+                <BarStartClient starStore={this.state.starStore}/>
+              )}
               <ProductByCategory categories={this.state.categories} />
             </div>
           </div>
