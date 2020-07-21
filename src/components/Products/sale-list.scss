@@ -1,9 +1,5 @@
 @import '../../styles/variables.scss';
 
-h3 {
-  text-align: center;  
-}
-
 .carousel {
   width: 100%;
   overflow: scroll;
@@ -13,7 +9,7 @@ h3 {
 
 .container__productsale {
 display: flex;
-padding-top: 10px;
+padding-top: 5px;
 }
 
 .productsale--product {
@@ -75,10 +71,29 @@ box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
 .BrainhubCarousel__arrows {
   background-color: $primary-color !important;
-  opacity: 0.4;
-  padding: 33px 10px 33px 10px  !important;
+  opacity: 0.12;
+  padding: 80px 10px  !important;
 }
 
 .BrainhubCarousel__arrows:hover{
-  opacity: 0.8;
+  opacity: 0.6;
+}
+
+.container__secction {
+  padding-top: 25px;
+}
+
+.title__secction {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title__secction .title__star {
+  font-size: 1.25rem;
+  font-weight: bolder;
+}
+
+.productsale--option.mid-1  {
+  display: none
+
 }

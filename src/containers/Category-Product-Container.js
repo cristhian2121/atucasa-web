@@ -7,32 +7,38 @@ export const CategoryProductContainer = () => {
   const [products, setproducts] = useState([]);
   const { id } = useParams();
 
-  // const getCategories = async () => {
-  //   let dataRaw;
-  //   try {
-  //     dataRaw = await getCategoryProductsService();
-  //     console.log("dataRaw: ", dataRaw);
-  //   } catch (err) {
-  //     console.log("err: ", err);
-  //   }
-  //   if (dataRaw && dataRaw.status) {
-  //     setCategories(dataRaw.data);
-  //   }
-  // };
-
   const getProducts = async () => {
     // this.setState({ loader: false });
+    let dataProducts;
+    let response;
     try {
       // Request of all products
-      let response = await GetProductCategoryService(id);
-      console.log('response: ', response);
-      let resp = response.data;
-      resp && resp.length && setproducts(resp);
+      response = await GetProductCategoryService(id);//getServiceProducts(sourceData, id);
+      dataProducts = response.data;
     } catch (e) {
       console.log("error getproducts product: ", e);
     }
-    this.setState({ loader: true });
+    if (response && response.status) {
+      setproducts(dataProducts);
+      // this.setState({ loader: true });
+    }
   };
+
+  // const getServiceProducts = async (sourceData, id) => {
+  //   // let sourceData;
+  //   try {
+  //     switch (sourceData) {
+  //       case "productCategory":
+  //         return GetProductCategoryService(id);
+  //         break;
+  //       case "productsStore":
+  //         return GetProductStoreService(id)
+  //         break;
+  //     }
+  //   } catch (error) {
+  //     console.log('error: ', error);
+  //   }
+  // }
 
   useEffect(() => {
     getProducts();
