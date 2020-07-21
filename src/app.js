@@ -11,6 +11,7 @@ import {
   CreateClientContainer,
   ClientContainerList,
   CategoryProductContainer,
+  ShoppingContainer,
   StoreContainer 
 } from "./containers";
 import { NotFound, CreateProduct } from "./components";
