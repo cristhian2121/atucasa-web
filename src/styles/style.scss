@@ -31,6 +31,17 @@ h1.MuiTypography-root.MuiTypography-h5 {
 .product-view.img-product {
   width: 94%;
 }
+
+// detail-view peoducts
+.makeStyles-paper-10,
+.makeStyles-paper-6,
+.makeStyles-paper-8,
+.makeStyles-paper-4,
+.makeStyles-paper-20 {
+  border: none !important;
+  border-radius: 10px !important;
+  width: 60% !important;
+}
 // .product-search.product-view.img-product {
 //   width: 50% !important;
 // }
@@ -1253,7 +1264,7 @@ p.fo-para {
     // background-image: url('../statics/sh.jpg');
     background-color: #060405;
     padding: 3em 0;
-    background-size: cover;
+    background-size: contain;
     margin: 1em 0;
 }
 .banner-top h3 {
