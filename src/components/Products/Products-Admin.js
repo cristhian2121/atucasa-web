@@ -7,7 +7,7 @@ import {
   updateClientService,
   deleteClientService,
 } from "../../services/Client-Service";
-import { GetProductService } from "../../services";
+import { GetProductStoreService } from "../../services";
 
 import { DetailProduct } from "./Detail-Product"
 
@@ -19,6 +19,9 @@ export const ListProductAdmin = (props) => {
   const [openModal, setopenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [clientSelected, setclientSelected] = useState({});
+  const store = window.localStorage
+    ? window.localStorage.getItem("store")
+    : null;
 
   useEffect(() => {
     getProducts()
@@ -49,7 +52,7 @@ export const ListProductAdmin = (props) => {
     let dataProducts;
     let response;
     try {
-      response = await GetProductService();
+      response = await GetProductStoreService(store);
       dataProducts = response.data;
     }
     catch (e) {console.log('error getproducts: ', e);}
