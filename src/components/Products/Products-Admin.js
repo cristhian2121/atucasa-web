@@ -3,29 +3,29 @@ import React, { useState, useEffect } from "react";
 import { TableGeneric, ConfirmModal, Loader } from "../Commons";
 import { TITLECONFIRMDELETE, TEXTCONFIRMDELETE } from "../../mocks";
 
+import { useSnackbar } from 'notistack';
 import {
-  updateClientService,
-  deleteClientService,
-} from "../../services/Client-Service";
-import { GetProductStoreService } from "../../services";
+  GetProductStoreService,
+  deleteProductService,
+  updateProductService} from "../../services";
 
 import { DetailProduct } from "./Detail-Product"
 
 export const ListProductAdmin = (props) => {
   console.log("props: ", props);
-  const { clientsCount_, clients, RremoveClient, RupdateClient } = props;
+  const { clients } = props;
   const [products_, setProducts_] = useState(clients);
   const [loader, setLoader] = useState(false);
   const [openModal, setopenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = React.useState(false);
-  const [clientSelected, setclientSelected] = useState({});
+  const [productSelected, setProductSelected] = useState({});
   const store = window.localStorage
     ? window.localStorage.getItem("store")
     : null;
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getProducts()
-    // setProducts_(clients);
   }, [clients]);
 
   const state = {
@@ -87,8 +87,8 @@ export const ListProductAdmin = (props) => {
 
   // Delete client
 
-  const showConfirm = (client) => {
-    setclientSelected(client);
+  const showConfirm = (product) => {
+    setProductSelected(product);
     setOpenConfirm(true);
   };
 
@@ -96,14 +96,29 @@ export const ListProductAdmin = (props) => {
     setOpenConfirm(false);
   };
 
-  const deleteClient = async (client) => {
-    RremoveClient(client.id);
+  const deleteProduct = async () => {
+    let response;
+    let id = productSelected.id;
+    try {
+      response = await deleteProductService(id)
+    } catch (error) {
+      enqueueSnackbar('No se pudo eliminar el registro, vuelva a intentarlo.', { variant: 'error' })
+    }
+    if (response && response.status) {
+      enqueueSnackbar('El registro se eliminó correctamente.', { variant: 'success' });
+      _deleteProduct(id)
+    }
+  }
+
+  const _deleteProduct = (id) => {
+    let products_tmp = products_.filter(obj => obj.id!=id);
+    setProducts_(products_tmp);
     setOpenConfirm(false);
   };
 
   // Show client detail
-  const showDetail = (client) => {
-    setclientSelected(client);
+  const showDetail = (product) => {
+    setProductSelected(product);
     setopenModal((openModal) => true);
   };
 
@@ -112,9 +127,30 @@ export const ListProductAdmin = (props) => {
   };
 
   // Star client
-  const handleStarClient = (client) => {
-    client.star = !client.star;
-    RupdateClient(client);
+  const handleStarClient = (product) => {
+    product.star = !product.star;
+    updateProduct(product)
+  };
+
+  const updateProduct = async (product) => {
+    let dataUpdate;
+    let response;
+    try {
+      response = await updateProductService(product.id, product);
+      dataUpdate = response.data;
+    } catch (error) {
+      enqueueSnackbar('No se pudo actualizar el registro, vuelva a intentarlo.', { variant: 'error' });
+    };
+    if (response && response.status) {
+      enqueueSnackbar('El registro se actualizó correctamente.', { variant: 'success' });
+      _updateProduct(product);
+    };
+  };
+
+  const _updateProduct = (dataProduct) => {
+    let products_tmp = products_.filter(obj => obj.id!=dataProduct.id);
+    let products = [...products_tmp, dataProduct];
+    setProducts_(products);
   };
 
   return (
@@ -143,7 +179,7 @@ export const ListProductAdmin = (props) => {
       )}
       {openModal && (
         <DetailProduct
-          product={products_}
+          product={productSelected}
           openModal={openModal}
           handleCloseModal_={hiddenDetail}
         />
@@ -151,11 +187,11 @@ export const ListProductAdmin = (props) => {
       {openConfirm && (
         <ConfirmModal
           title={`${TITLECONFIRMDELETE}`}
-          text={`${TEXTCONFIRMDELETE} ##`}
+          text={`${TEXTCONFIRMDELETE}`}
           open={openConfirm}
-          handleConfirm_={deleteClient}
+          handleConfirm_={deleteProduct}
           handleClose_={hiddenConfirm}
-          data={clientSelected}
+          data={productSelected}
         />
       )}
     </div>

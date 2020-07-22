@@ -11,7 +11,6 @@ import { Loader } from "../index";
 import {
   GetProductService,
   GetProductStoreService,
-  deleteProductService,
 } from "./../../services/Products-Service";
 
 // Mock
@@ -31,25 +30,6 @@ const ListProductsComponent = (props) => {
     title: "ply with Goku",
     subheader: "Figure in proportion 1x1",
   };
-  const deleteProduct = async (id) => {
-    /* Request for deleting product, this is enable for client */
-    if (storeCurrent) {
-      try {
-        setLoader(false);
-        let response = await deleteProductService(id);
-        removeProduct(id);
-        setLoader(true);
-      } catch (e) {
-        console.log("error delete product: ", e);
-      }
-    } else console.log("No cuenta con los permisos suficientes");
-  };
-  const removeProduct = (id) => {
-    /* Method for remove product id DOM */
-    let products = productList.filter((item) => item.id != id);
-    setProductList(products);
-  };
-
   const validateSelected = (id) =>
     !!props.productsSelected.find((_) => _ == id);
   return (
@@ -63,7 +43,6 @@ const ListProductsComponent = (props) => {
             <Product
               product={product}
               selected={validateSelected(product.id)}
-              deleteProduct={deleteProduct}
             />
           </div>
         ))}
