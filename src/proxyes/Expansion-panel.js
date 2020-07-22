@@ -56,7 +56,14 @@ export const ExpansionPanelProxy = (props) => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading} style={itemSelected(item.id, true)}>{item.name}</Typography>
+            <Typography className={classes.heading} style={itemSelected(item.id, true)}>
+              <img
+                className="kh_img"
+                src={item.url_image || item.image}
+                alt={item.name}
+              />
+              {item.name}
+            </Typography>
           </ExpansionPanelSummary>
           {/* <ExpansionPanelDetails>
             <Typography>
