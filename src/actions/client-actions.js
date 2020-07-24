@@ -12,7 +12,6 @@ export const removeClient = (id) => {
       payload: true,
     });
     const answer = await deleteClientService(id);
-    console.log("answer: ", answer);
     dispatch({
       type: REMOVE_CLIENT,
       payload: id,
@@ -31,7 +30,6 @@ export const updateClient = (client) => {
       payload: true,
     });
     const answer = await updateClientService(client.id, client);
-    console.log("answer: ", answer);
     dispatch({
       type: UPDATE_CLIENT,
       payload: client,
@@ -42,7 +40,6 @@ export const updateClient = (client) => {
 export const getClients = (payload) => {
   return (dispatch) => {
     return getClientsService().then((response) => {
-      console.log("response:  ***", response);
       dispatch({
         type: GET_CLIENTS,
         payload: response.data,

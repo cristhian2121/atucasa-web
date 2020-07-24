@@ -35,7 +35,6 @@ const ContentInfo = ({ client }) => {
 };
 
 export const DetailClient = ({ openModal, handleCloseModal_, client }) => {
-  console.log("client: ", client);
   const handleCloseModal = (state) => handleCloseModal_(state);
 
   return (

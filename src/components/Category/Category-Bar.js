@@ -17,7 +17,6 @@ export const CategoryBar = (props) => {
     let dataRaw;
     try {
       dataRaw = await getCategoryProductsService();
-      console.log("dataRaw: ", dataRaw);
     } catch (err) {
       console.log("err: ", err);
     }

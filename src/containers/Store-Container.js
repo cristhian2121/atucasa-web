@@ -4,7 +4,6 @@ import { GetProductStoreService } from "../services/Products-Service";
 import { useParams } from "react-router-dom";
 
 export const StoreContainer = (props) => {
-  console.log('props***********h: ', props.location);
   // const {location} = props
   const [products, setproducts] = useState([]);
   const { id } = useParams();

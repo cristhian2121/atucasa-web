@@ -26,7 +26,6 @@ export const ShoppingListComponent = ({
         const text = $label.innerText;
         subTotal += text ? parseFloat(text) : 0;
       });
-      console.log("subTotal: ", subTotal);
       settotal(subTotal);
     }, 500);
   }, [products]);
@@ -56,7 +55,6 @@ export const ShoppingListComponent = ({
         const text = $label.innerText;
         subTotal += text ? parseFloat(text) : 0;
       });
-      console.log("subTotal: ", subTotal);
       settotal(subTotal);
     }, 500);
   };

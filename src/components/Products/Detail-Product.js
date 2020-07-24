@@ -29,7 +29,6 @@ const ContentInfo = ({ product }) => {
 };
 
 export const DetailProduct = ({ openModal, handleCloseModal_, product }) => {
-  console.log("product: ", product);
   const handleCloseModal = (state) => handleCloseModal_(state);
 
   return (

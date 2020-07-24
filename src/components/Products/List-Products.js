@@ -13,14 +13,13 @@ import {
   deleteProductService,
 } from "./../../services/Products-Service";
 
-// Mock
-import { productMock } from "../../mocks/product";
+// Hook
+import { useSessionStorage } from "../../Hooks";
 
 const ListProductsComponent = (props) => {
-  console.log("props: ", props);
-  const storeCurrent = window.localStorage
-    ? window.localStorage.getItem("store")
-    : null;
+  const [user, setUser] = useSessionStorage('android')
+  const storeCurrent = user
+  console.log('storeCurrent: ', storeCurrent);
   const [productList, setProductList] = useState([]);
   const [loader, setLoader] = useState(true);
   const products = [1, 2, 3, 4, 5];

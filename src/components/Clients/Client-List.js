@@ -15,7 +15,6 @@ import {
 } from "../../services/Client-Service";
 
 export const ClientListComponent = (props) => {
-  console.log("props: ", props);
   const { clientsCount_, clients, RremoveClient, RupdateClient, loader } = props;
   const [clients_, setclient_] = useState(clients);
   const [openModal, setopenModal] = useState(false);
@@ -23,7 +22,6 @@ export const ClientListComponent = (props) => {
   const [clientSelected, setclientSelected] = useState({});
 
   useEffect(() => {
-    console.log("clients: **************", clients);
     setclient_(clients);
   }, [clients]);
 
