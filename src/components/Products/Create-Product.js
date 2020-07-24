@@ -64,7 +64,6 @@ export const CreateProduct = () => {
     try {
       let response = await getCategoryProductsService()
       let resp = response.data
-      console.log('resp: ', resp);
       // upload options categories in variable
       setCategories(resp)
     } catch (e) { console.log('error create product', e) }

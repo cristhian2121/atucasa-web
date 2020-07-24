@@ -21,14 +21,12 @@ export const ExpansionPanelProxy = (props) => {
   const classes = useStyles();
 
   const handleClick = (event, id) => {
-    console.log(`click to panel ${id}`);
     useSelected(id);
     props.handleCategory(id);
   };
 
   const itemSelected = (id, text = false) => {
     if (selected == id) {
-      console.log("Yeah");
       if (text)return { fontWeight: 'bold' }
       return {
         border: "0.8px outset",

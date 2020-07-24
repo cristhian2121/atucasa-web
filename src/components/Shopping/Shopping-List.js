@@ -26,7 +26,6 @@ export const ShoppingListComponent = ({
         const text = $label.innerText;
         subTotal += text ? parseFloat(text) : 0;
       });
-      console.log("subTotal: ", subTotal);
       settotal(subTotal);
     }, 500);
   }, [products]);
@@ -56,7 +55,6 @@ export const ShoppingListComponent = ({
         const text = $label.innerText;
         subTotal += text ? parseFloat(text) : 0;
       });
-      console.log("subTotal: ", subTotal);
       settotal(subTotal);
     }, 500);
   };
@@ -67,39 +65,47 @@ export const ShoppingListComponent = ({
     <>
       <div className="container__shopping">
         <table>
-          <tr className="shopping__header">
-            <th></th>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
-          {products.map((product) => (
+          <thead className="shopping__header">
             <tr>
-              <td>
-                <img src={product.url_image} height={"100px"} width={"100px"} />
-              </td>
-              <td>{product.name}</td>
-              <td>{product.price}</td>
-              <td>
-                <FlooterCard
-                  quantity={product.number}
-                  product={product}
-                  addProductToCar={handleAddProductToCar}
-                  removeProductToCar={handleRemoveProductToCar}
-                />
-              </td>
-              <td className="shopping-table-total">
-                {product.price * product.number}
-              </td>
-              <td onClick={() => handleDeleteProduct(product)}>
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </td>
+              <th></th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th></th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>
+                  <img
+                    src={product.url_image}
+                    height={"100px"}
+                    width={"100px"}
+                  />
+                </td>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
+                <td>
+                  <FlooterCard
+                    quantity={product.number}
+                    product={product}
+                    addProductToCar={handleAddProductToCar}
+                    removeProductToCar={handleRemoveProductToCar}
+                  />
+                </td>
+                <td className="shopping-table-total">
+                  {product.price * product.number}
+                </td>
+                <td onClick={() => handleDeleteProduct(product)}>
+                  <IconButton aria-label="delete">
+                    <DeleteIcon />
+                  </IconButton>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
         {products.length && (
           <div className="col-12 d-flex justify-content-end align-items-center">
