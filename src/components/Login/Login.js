@@ -18,6 +18,10 @@ import { useHistory } from "react-router-dom";
 // Hooks
 import { useSessionStorage } from "../../Hooks";
 
+// Actions
+import { saveUser } from "../../actions";
+import { connect } from "react-redux";
+
 // import Copyright from '../../components/common/copyright'
 // import Logo from '../../static/logo_pop_litle.png'
 
@@ -41,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Login = () => {
+const LoginComponent = ({ RsaveUser }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [storageData, setStorageData] = useSessionStorage("android");
   let history = useHistory();
@@ -53,7 +57,6 @@ export const Login = () => {
   const [password, setPassword] = useState("");
 
   const login = async (event) => {
-    // event.preventDefault()
     let data = generateData();
 
     let response = await LoginService(data);
@@ -61,8 +64,7 @@ export const Login = () => {
     if (response && response.groups) {
       clearForm();
       const rol = response.groups[0];
-      console.log('response: ', response);
-      setStorageData(response);
+      RsaveUser(response)
       if (rol == ADMIN) history.push("/client");
       else history.push(`/store/products/${response.data.store}`);
       enqueueSnackbar(response.detail, { variant: "success" });
@@ -167,3 +169,9 @@ export const Login = () => {
     </div>
   );
 };
+
+const mapDispatchToProps = {
+  RsaveUser: saveUser,
+};
+
+export const Login = connect(null, mapDispatchToProps)(LoginComponent);

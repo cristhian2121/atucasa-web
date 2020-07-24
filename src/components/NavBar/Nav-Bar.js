@@ -23,6 +23,8 @@ import { Product, IndividualProduct } from "../Products/Product";
 import { GetProductNameService } from "../../services/Products-Service";
 import { DeviceSignalCellularNull } from "material-ui/svg-icons";
 
+import { clearUser } from '../../actions'
+
 export const NavBarComponent = (props) => {
   const [openLogin, setOpenLogin] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
@@ -30,18 +32,15 @@ export const NavBarComponent = (props) => {
   const [searchProduct, setSearchProduct] = useState("");
   const [listProducts, setListProducts] = useState([]);
   const [loadingSP, setLoadingSP] = useState(false);
-  const [user, setUser] = useSessionStorage("android");
-  console.log('user 1: ', user);
   let history = useHistory();
 
   const redirectToShop = () => {
-    if (props.productsSelected.length) {
+    if (props.productReducer.productsSelected.length) {
       history.push("/shopping");
     }
   };
 
   useEffect(() => {
-    console.log("****", user);
     document.addEventListener(
       "click",
       ({ target }) => {
@@ -50,9 +49,9 @@ export const NavBarComponent = (props) => {
           setOpenAdmin(false);
         }
       },
-      [user]
+      []
     );
-  });
+  }, []);
   const handleSearch = async (event) => {
     event.preventDefault();
     if (searchProduct.length > 0) {
@@ -75,7 +74,7 @@ export const NavBarComponent = (props) => {
     setLoadingSP(false);
   };
 
-  const logout = () => setUser('');
+  const logout = () => props.RclearUser();
 
   return (
     <>
@@ -159,7 +158,7 @@ export const NavBarComponent = (props) => {
                   </div>
                   {openLogin && (
                     <ul className="dropdown-menu multi multi1">
-                      {user ? (
+                      {props.authReducer.user ? (
                         <div className="login--cerrar-session" onClick={logout}>
                           Cerrar sesión
                         </div>
@@ -178,7 +177,7 @@ export const NavBarComponent = (props) => {
                   )}
                 </li>
                 {/* <li><a href="" ><i className="fa fa-user" aria-hidden="true"></i>Login</a></li> */}
-                {user && (
+                {props.authReducer.user && (
                   <li className="dropdown">
                     <div onClick={() => setOpenAdmin(!openAdmin)}>
                       <SettingsIcon color="primary" />
@@ -206,7 +205,7 @@ export const NavBarComponent = (props) => {
                       style={{ color: "#e5097f", fontSize: "1.8rem" }}
                     />
                     <div className="circle">
-                      {props.productsSelected.length}
+                      {props.productReducer.productsSelected.length}
                     </div>
                   </div>
                 </li>
@@ -219,8 +218,15 @@ export const NavBarComponent = (props) => {
   );
 };
 
-const mapStateToProps = (reducers) => {
-  return reducers.productReducer;
+const mapStateToProps = ({ productReducer, authReducer }) => {
+  return {
+    productReducer,
+    authReducer,
+  };
 };
 
-export const NavBar = connect(mapStateToProps, null)(NavBarComponent);
+const mapDispatchToProps = {
+  RclearUser: clearUser,
+};
+
+export const NavBar = connect(mapStateToProps, mapDispatchToProps)(NavBarComponent);

@@ -8,7 +8,6 @@ const Provider = ({ children }) => {
   const value = {
     isAuth,
     activateAuth: () => {
-      console.log('WII');
       setIsAuth(true);
     },
   };

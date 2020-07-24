@@ -19,7 +19,6 @@ import { useSessionStorage } from "../../Hooks";
 const ListProductsComponent = (props) => {
   const [user, setUser] = useSessionStorage('android')
   const storeCurrent = user
-  console.log('storeCurrent: ', storeCurrent);
   const [productList, setProductList] = useState([]);
   const [loader, setLoader] = useState(true);
   const products = [1, 2, 3, 4, 5];

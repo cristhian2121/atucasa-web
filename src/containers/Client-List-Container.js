@@ -13,9 +13,7 @@ export const ClientContainerListComponent = ({ getClients }) => {
   }, []);
 
   const getClient = async() => {
-    console.log("Pre");
     await getClients();
-    console.log("Pos");
     // const clientsRaw = await getClientsService();
     // console.log("clientsRaw: ", clientsRaw);
     // const clientsList = clientsRaw.statusText == "OK" ? clientsRaw.data : [];
