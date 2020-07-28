@@ -51,7 +51,9 @@ export const StoreContainer = (props) => {
           <div className="clearfix"> </div>
         </div>
       </div>
-      <ListProducts productList={products} />
+      <div className="list-products-view">
+        <ListProducts productList={products} />
+      </div>
     </>
   );
 };

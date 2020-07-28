@@ -74,7 +74,10 @@ export const NavBarComponent = (props) => {
     setLoadingSP(false);
   };
 
-  const logout = () => props.RclearUser();
+  const logout = () => {
+    props.RclearUser();
+    history.push('/')
+  }
 
   return (
     <>

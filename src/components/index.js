@@ -14,6 +14,7 @@ import { BarProduct } from "./Products/Bar-Product";
 import { ProductByCategory } from "./Category/Product-By-Category";
 import { ShoppingList } from "./Shopping/Shopping-List";
 import { FlooterCard } from "./Products/Flooter-Product";
+import { ListProductAdmin } from "./Products/Products-Admin"
 
 export {
   ListProducts,
@@ -32,4 +33,5 @@ export {
   ProductByCategory,
   ShoppingList,
   FlooterCard,
+  ListProductAdmin
 };

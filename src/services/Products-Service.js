@@ -28,4 +28,5 @@ export const deleteProductService = (idProduct) =>
 
 /* request update product */
 export const updateProductService = (idProduct, dataProduct) =>
-  apiBussines.update(`/product/${idProduct}`, dataProduct);
+  apiBussines.put(`/product/${idProduct}/`, dataProduct);
+

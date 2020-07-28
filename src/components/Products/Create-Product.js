@@ -7,15 +7,19 @@ import {
 } from "react-material-ui-form-validator";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 
-import { SaveProductService, getCategoryProductsService } from "../../services/Products-Service"
+import {
+  SaveProductService,
+  getCategoryProductsService,
+} from "../../services/Products-Service";
 
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
 
-import pepe from '../../statics/sh.jpg'
+import pepe from "../../statics/sh.jpg";
+import { connect } from "react-redux";
 
-export const CreateProduct = () => {
+const CreateProductComponent = ({ user }) => {
   // const [email, setEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [name, setName] = useState("");
@@ -29,13 +33,13 @@ export const CreateProduct = () => {
   const [discountPorcentual, setDiscountPorcentual] = useState("");
   const [image, setImage] = useState("");
   const form = useRef("");
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
 
-  useEffect (() => {
+  useEffect(() => {
     /* Method mounted in functions */
-    getCategoryProducts()
-  },[category]);
+    getCategoryProducts();
+  }, [category]);
 
   const branches = [
     {
@@ -52,56 +56,67 @@ export const CreateProduct = () => {
     setEmail(event.target.value);
   };
   const handleSubmit = async () => {
-    let data = generateData()
+    let data = generateData();
 
     try {
-      let response = await SaveProductService(data)
-      clearForm()
-      enqueueSnackbar('El product se creó correctamente.', { variant: 'error' })
-    } catch (e) { console.log('error create product', e) }
+      let response = await SaveProductService(data);
+      clearForm();
+      enqueueSnackbar("El product se creó correctamente.", {
+        variant: "error",
+      });
+    } catch (e) {
+      console.log("error create product", e);
+    }
   };
   const getCategoryProducts = async () => {
     try {
-      let response = await getCategoryProductsService()
-      let resp = response.data
+      let response = await getCategoryProductsService();
+      let resp = response.data;
       // upload options categories in variable
-      setCategories(resp)
-    } catch (e) { console.log('error create product', e) }
-  };  
+      setCategories(resp);
+    } catch (e) {
+      console.log("error create product", e);
+    }
+  };
   const clearForm = (event) => {
-    setName("")
-    setPrice("")
-    setCategory([1])
-    setBranch("")
-    setDescription("")
-    setPresentation("")
-    setBrand("")
-    setUnits("")
-    setDiscountPorcentual("")
-    setImage("")
+    setName("");
+    setPrice("");
+    setCategory([1]);
+    setBranch("");
+    setDescription("");
+    setPresentation("");
+    setBrand("");
+    setUnits("");
+    setDiscountPorcentual("");
+    setImage("");
   };
   const generateData = () => {
     /* generate data save product */
-    let elements = document.getElementById('productsForm').elements;
-    let data = {};    
+    let elements = document.getElementById("productsForm").elements;
+    let data = {};
     for (let item of elements) {
       if (item.name) {
         data[item.name] = item.value;
       }
     }
-    data['category_product'] = [data['category_product']]
-    data['discount_porcentual'] = !data['discount_porcentual'] ? 0:data['discount_porcentual']
-    data['store'] = 1
-    
-    return data
+    data["category_product"] = [data["category_product"]];
+    data["discount_porcentual"] = !data["discount_porcentual"]
+      ? 0
+      : data["discount_porcentual"];
+    data["store"] = user.store;
+
+    return data;
   };
 
   return (
     <>
       <div className="banner-top">
         <div className="container">
-          <h3 >Agregar Producto</h3>
-          <h4><Link to="/">Inicio</Link><label>/</label>Agregar producto</h4>
+          <h3>Agregar Producto</h3>
+          <h4>
+            <Link to="/">Inicio</Link>
+            <label>/</label>Agregar producto
+          </h4>
           <div className="clearfix"> </div>
         </div>
       </div>
@@ -221,8 +236,17 @@ export const CreateProduct = () => {
               className="col-md-6"
             />
             <div className="col-md-12 titleSection">
-              <Button type="submit" disabled={isSending} color="primary" variant="contained">Guardar</Button>
-              <Button onClick={clearForm} variant="contained">Cancelar</Button>
+              <Button
+                type="submit"
+                disabled={isSending}
+                color="primary"
+                variant="contained"
+              >
+                Guardar
+              </Button>
+              <Button onClick={clearForm} variant="contained">
+                Cancelar
+              </Button>
             </div>
           </ValidatorForm>
         </div>
@@ -230,3 +254,10 @@ export const CreateProduct = () => {
     </>
   );
 };
+
+const mapStateToProps = (reducers) => reducers.authReducer;
+
+export const CreateProduct = connect(
+  mapStateToProps,
+  null
+)(CreateProductComponent);

@@ -2,7 +2,7 @@ import React from "react";
 
 export const ElementDetail = ({ image, title, subTitle, Content, price }) => {
   return (
-    <div classNameName="single">
+    <div className="single">
       <div className="container">
         <div className="single-top-main">
           <div className="col-md-5 single-top">
