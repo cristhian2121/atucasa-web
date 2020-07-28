@@ -20,10 +20,32 @@ const ListProductAdminComponent = (props) => {
   const [openModal, setopenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [productSelected, setProductSelected] = useState({});
+  const [actions, setActions] = useState([
+    // {
+    //   type: "edit",
+    //   title: "Editar cliente",
+    // },
+    {
+      type: "show",
+      title: "Detalle",
+    },
+    {
+      type: "delete",
+      title: "Eliminar cliente",
+    },
+    {
+      type: "star",
+      title: "Cliente estrella",
+    },
+  ]);
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     getProducts();
+    if (user && user.groups[0]) {
+      const actionsAux = actions.filter((_) => _.type != "star");
+      setActions(actionsAux);
+    }
   }, [clients]);
 
   const state = {
@@ -64,25 +86,6 @@ const ListProductAdminComponent = (props) => {
   const handleChangePage = (forward) => {
     // this.props.changePage(forward)
   };
-
-  const actions = [
-    // {
-    //   type: "edit",
-    //   title: "Editar cliente",
-    // },
-    {
-      type: "show",
-      title: "Detalle",
-    },
-    {
-      type: "delete",
-      title: "Eliminar cliente",
-    },
-    {
-      type: "star",
-      title: "Cliente estrella",
-    },
-  ];
 
   // Delete client
 
@@ -210,4 +213,7 @@ const mapStateToProps = (reducers) => {
   return reducers.authReducer;
 };
 
-export const ListProductAdmin = connect(mapStateToProps, null)(ListProductAdminComponent);
+export const ListProductAdmin = connect(
+  mapStateToProps,
+  null
+)(ListProductAdminComponent);
