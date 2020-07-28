@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   ValidatorForm,
   TextValidator,
@@ -6,14 +7,19 @@ import {
 } from "react-material-ui-form-validator";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useSnackbar } from "notistack";
 
-import { SaveProductService, getCategoryProductsService } from "../../services/Products-Service"
+import {
+  SaveProductService,
+  getCategoryProductsService,
+} from "../../services/Products-Service";
 
 import { FORM_EMAIL, FORM_REQUIRED, FORM_MAX, FORM_MAXVAL } from "../../mocks";
 
-import pepe from '../../statics/sh.jpg'
+import pepe from "../../statics/sh.jpg";
+import { connect } from "react-redux";
 
-export const CreateProduct = () => {
+const CreateProductComponent = ({ user }) => {
   // const [email, setEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
   const [name, setName] = useState("");
@@ -27,12 +33,13 @@ export const CreateProduct = () => {
   const [discountPorcentual, setDiscountPorcentual] = useState("");
   const [image, setImage] = useState("");
   const form = useRef("");
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
-  useEffect (() => {
+  useEffect(() => {
     /* Method mounted in functions */
-    getCategoryProducts()
-  },[category]);
+    getCategoryProducts();
+  }, [category]);
 
   const branches = [
     {
@@ -49,64 +56,71 @@ export const CreateProduct = () => {
     setEmail(event.target.value);
   };
   const handleSubmit = async () => {
-    let data = generateData()
+    let data = generateData();
 
     try {
-      let response = await SaveProductService(data)
-      clearForm()
-    } catch (e) { console.log('error create product', e) }
+      let response = await SaveProductService(data);
+      clearForm();
+      enqueueSnackbar("El product se creó correctamente.", {
+        variant: "error",
+      });
+    } catch (e) {
+      console.log("error create product", e);
+    }
   };
   const getCategoryProducts = async () => {
     try {
-      let response = await getCategoryProductsService()
-      let resp = response.data
-      console.log('resp: ', resp);
+      let response = await getCategoryProductsService();
+      let resp = response.data;
       // upload options categories in variable
-      setCategories(resp)
-    } catch (e) { console.log('error create product', e) }
-  };  
+      setCategories(resp);
+    } catch (e) {
+      console.log("error create product", e);
+    }
+  };
   const clearForm = (event) => {
-    setName("")
-    setPrice("")
-    setCategory([1])
-    setBranch("")
-    setDescription("")
-    setPresentation("")
-    setBrand("")
-    setUnits("")
-    setDiscountPorcentual("")
-    setImage("")
+    setName("");
+    setPrice("");
+    setCategory([1]);
+    setBranch("");
+    setDescription("");
+    setPresentation("");
+    setBrand("");
+    setUnits("");
+    setDiscountPorcentual("");
+    setImage("");
   };
   const generateData = () => {
     /* generate data save product */
-    let elements = document.getElementById('productsForm').elements;
-    let data = {};    
+    let elements = document.getElementById("productsForm").elements;
+    let data = {};
     for (let item of elements) {
       if (item.name) {
         data[item.name] = item.value;
       }
     }
-    data['category_product'] = [data['category_product']]
-    data['discount_porcentual'] = !data['discount_porcentual'] && 0
-    data['store'] = 1
-    
-    return data
+    data["category_product"] = [data["category_product"]];
+    data["discount_porcentual"] = !data["discount_porcentual"]
+      ? 0
+      : data["discount_porcentual"];
+    data["store"] = user.store;
+
+    return data;
   };
 
   return (
     <>
-      <div>Agrega tu producto</div>
       <div className="banner-top">
-        <img src={pepe} width="100%" height="200px" />
         <div className="container">
-          <h3 >Codes</h3>
-          <h4><a href="index.html">Home</a><label>/</label>Codes</h4>
+          <h3>Agregar Producto</h3>
+          <h4>
+            <Link to="/">Inicio</Link>
+            <label>/</label>Agregar producto
+          </h4>
           <div className="clearfix"> </div>
         </div>
       </div>
-      <div className="col-12 d-flex">
-        {/* <div className="col-md-2"></div> */}
-
+      <div className="container col-12 d-flex">
         <div className="col-12">
           <ValidatorForm
             id="productsForm"
@@ -121,16 +135,6 @@ export const CreateProduct = () => {
               value={name}
               validators={["required", "maxStringLength:50"]}
               errorMessages={[FORM_REQUIRED, `${FORM_MAX} 50`]}
-              className="col-md-6"
-            />
-            <TextValidator
-              multiline
-              label="Descripción"
-              onChange={(e) => setDescription(e.target.value)}
-              name="description"
-              value={description}
-              validators={["maxStringLength:500"]}
-              errorMessages={[`${FORM_MAX} 500`]}
               className="col-md-6"
             />
             <TextValidator
@@ -169,16 +173,7 @@ export const CreateProduct = () => {
               validators={["maxStringLength:250"]}
               errorMessages={[`${FORM_MAX} 250`]}
               className="col-md-6"
-            />       
-            {/* <TextValidator
-              label="Email"
-              onChange={handleChange}
-              name="email"
-              value={email}
-              validators={["required", "isEmail"]}
-              errorMessages={[FORM_REQUIRED, FORM_EMAIL]}
-              className="col-md-6"
-            /> */}
+            />
             <TextValidator
               label="Unidades disponibles"
               onChange={(e) => setUnits(e.target.value)}
@@ -230,13 +225,39 @@ export const CreateProduct = () => {
                 </MenuItem>
               ))}
             </SelectValidator> */}
-            <Button type="submit" disabled={isSending}>Guardar</Button>
-            <Button onClick={clearForm}>Cancelar</Button>
+            <TextValidator
+              label="Descripción"
+              multiline
+              onChange={(e) => setDescription(e.target.value)}
+              name="description"
+              value={description}
+              validators={["maxStringLength:500"]}
+              errorMessages={[`${FORM_MAX} 500`]}
+              className="col-md-6"
+            />
+            <div className="col-md-12 titleSection">
+              <Button
+                type="submit"
+                disabled={isSending}
+                color="primary"
+                variant="contained"
+              >
+                Guardar
+              </Button>
+              <Button onClick={clearForm} variant="contained">
+                Cancelar
+              </Button>
+            </div>
           </ValidatorForm>
         </div>
-
-        <div className="col-md-2"></div>
       </div>
     </>
   );
 };
+
+const mapStateToProps = (reducers) => reducers.authReducer;
+
+export const CreateProduct = connect(
+  mapStateToProps,
+  null
+)(CreateProductComponent);

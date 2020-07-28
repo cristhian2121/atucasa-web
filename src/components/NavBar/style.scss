@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .circle {
   background-color: $base-color;
@@ -15,4 +15,26 @@
 .car {
   color: $primary-color;
   font-size: 27px !important;
+}
+
+.cursort--point {
+  cursor: pointer;
+}
+
+.product-view-nav .product--description .img-product {
+  // .img-product {
+  //   margin-right: 50px;
+  //   width: 30%;
+  // }
+  img {
+    height: 130px;
+    width: 100%;
+    padding-right: 10px;
+  }
+  display: flex;
+  width: 30%;
+}
+
+.login--cerrar-session {
+  cursor: pointer;
 }

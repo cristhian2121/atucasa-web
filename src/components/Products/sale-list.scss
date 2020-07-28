@@ -1,9 +1,5 @@
 @import '../../styles/variables.scss';
 
-h3 {
-  text-align: center;  
-}
-
 .carousel {
   width: 100%;
   overflow: scroll;
@@ -13,12 +9,12 @@ h3 {
 
 .container__productsale {
 display: flex;
-padding-top: 10px;
+padding-top: 5px;
 }
 
 .productsale--product {
-height: 180px;
-width: 250px;  
+height: 150px;
+width: 230px;  
 
 border-radius: 11px; 
 margin-left: 5px;  
@@ -47,17 +43,16 @@ opacity:1;
 opacity:0.8;
 }
 
-
 .productsale--product img {
-object-fit: cover;
+object-fit: contain;
 border-radius: 10px;
 }
 
 .productsale--product button {
 position: absolute;
 cursor: pointer;
-top: 147px;
-right: 30px;
+top: 117px;
+right: 10px;
 border: none;
 
 border-radius: 14px;
@@ -75,4 +70,29 @@ box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 
 .BrainhubCarousel__arrows {
   background-color: $primary-color !important;
+  opacity: 0.12;
+  padding: 80px 10px  !important;
+}
+
+.BrainhubCarousel__arrows:hover{
+  opacity: 0.6;
+}
+
+.container__secction {
+  padding-top: 25px;
+}
+
+.title__secction {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title__secction .title__star {
+  font-size: 1.25rem;
+  font-weight: bolder;
+}
+
+.productsale--option.mid-1  {
+  display: none
+
 }

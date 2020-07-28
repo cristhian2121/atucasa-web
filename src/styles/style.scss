@@ -3,6 +3,49 @@
 h1.MuiTypography-root.MuiTypography-h5 {
   color: #999999;
 }
+
+/* Estilos modificados en material for form products*/
+.MuiFormLabel-root {
+    padding: 0 15px !important;
+}
+.MuiFormControl-root.MuiTextField-root{
+    padding: 0 15px !important;
+}
+.MuiFormLabel-root {
+    font-size: 14px !important;
+}
+
+// Search dropdown
+.dropdown.search-drop {
+  width: 100%;
+}
+.dropdown-menu.multi.serch-nav {
+  min-width: 100%;
+  padding: 20px 20px;
+}
+.serch-nav.multi1 {
+  top: 98%;
+  left: 0%;
+}
+
+.product-view.img-product {
+  width: 94%;
+}
+
+// detail-view peoducts
+.makeStyles-paper-10,
+.makeStyles-paper-6,
+.makeStyles-paper-8,
+.makeStyles-paper-4,
+.makeStyles-paper-20 {
+  border: none !important;
+  border-radius: 10px !important;
+  width: 60% !important;
+}
+// .product-search.product-view.img-product {
+//   width: 50% !important;
+// }
+
 /*--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -348,26 +391,27 @@ img.img-head {
   display: inline-block;
 }
 ul.multi-column-dropdown {
-  text-align: left;
+    // text-align: left;
+    text-align: center;
 }
-.multi-column-dropdown li a {
-  display: block;
-  clear: both;
-  line-height: 1.428571429;
-  color: #737373 !important;
-  white-space: normal;
-  font-size: 13px;
+.multi-column-dropdown li {
+    display: block;
+    clear: both;
+    line-height: 1.428571429;
+    color: #737373 !important;
+    white-space: normal;
+    font-size: 13px;
 }
-.multi-column-dropdown li a i {
-  margin-right: 7px;
+.multi-column-dropdown li i{
+    margin-right:7px;
 }
 .multi-column-dropdown li {
   list-style-type: none;
   margin: 7px 0;
 }
 
-.multi-column-dropdown li a:hover {
-  color: #000 !important;
+.multi-column-dropdown li:hover {
+    color: #000 !important;
 }
 
 .w3l {
@@ -389,8 +433,8 @@ nav.navbar.navbar-default {
 }
 
 /*--nav--*/
-.multi-column-dropdown li a {
-  color: #999 !important;
+.multi-column-dropdown li {
+    color: #999 !important;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -421,10 +465,9 @@ ul.multi-column-dropdown h6 {
   text-transform: capitalize;
   font-family: "Glegoo", serif;
 }
-
 .dropdown-menu.multi {
-  min-width: 290px;
-  padding: 20px 20px;
+    min-width: 290px;
+    padding: 20px 20px;
 }
 .nav .open > a,
 .nav .open > a:hover,
@@ -522,11 +565,11 @@ span.fa.fa-shopping-cart.my-cart-icon {
 //     padding: 7px 22px;
 // }
 .search-form input {
-  width: 93%;
+  width: 350px;
   padding: 7px 22px;
   outline: none;
   font-size: 1em;
-  color: #fff;
+  color: #0000;
   border: 1px solid #fff;
   background: rgba(255, 255, 255, 0.45);
 }
@@ -1205,14 +1248,24 @@ p.fo-para {
 }
 /*-- //footer --*/
 /*--product--*/
-.banner-top {
-  text-align: center;
-  width: 100%;
-  height: 114px;
-  display: block;
-  // background-image: url('../statics/sh.jpg');
-  padding: 3em 0;
-  background-size: cover;
+@mixin background($imgpath,$position:0 0,$repeat: no-repeat) {
+    background: {
+        image: url($imgpath);
+        position: $position;
+        repeat: $repeat;
+    }
+}
+.banner-top{
+	text-align: center;
+    width: 100%;
+    height: 114px;
+    display: block;
+    // @include background('../statics/sh.jpg');
+    // background-image: url('../statics/sh.jpg');
+    background-color: #060405;
+    padding: 3em 0;
+    background-size: contain;
+    margin: 1em 0;
 }
 .banner-top h3 {
   font-size: 2.5em;

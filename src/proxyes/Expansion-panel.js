@@ -16,18 +16,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ExpansionPanelProxy = ({ items }) => {
+export const ExpansionPanelProxy = (props) => {
   const [selected, useSelected] = useState();
   const classes = useStyles();
 
   const handleClick = (event, id) => {
-    console.log(`click to panel ${id}`);
     useSelected(id);
+    props.handleCategory(id);
   };
 
   const itemSelected = (id, text = false) => {
     if (selected == id) {
-      console.log("Yeah");
       if (text)return { fontWeight: 'bold' }
       return {
         border: "0.8px outset",
@@ -40,7 +39,7 @@ export const ExpansionPanelProxy = ({ items }) => {
 
   return (
     <div className={classes.root}>
-      {items.map((item) => (
+      {props.items.map((item) => (
         <ExpansionPanel
           key={item.id}
           style={itemSelected(item.id)}
@@ -55,7 +54,14 @@ export const ExpansionPanelProxy = ({ items }) => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography className={classes.heading} style={itemSelected(item.id, true)}>{item.name}</Typography>
+            <Typography className={classes.heading} style={itemSelected(item.id, true)}>
+              <img
+                className="kh_img"
+                src={item.url_image || item.image}
+                alt={item.name}
+              />
+              {item.name}
+            </Typography>
           </ExpansionPanelSummary>
           {/* <ExpansionPanelDetails>
             <Typography>

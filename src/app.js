@@ -1,23 +1,45 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, HashRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  HashRouter,
+} from "react-router-dom";
 
-import { HomeContainer } from "./containers";
-import { NotFound } from "./components";
-import { CreateProduct } from "./components/Products/Create-Product";
+import {
+  HomeContainer,
+  CreateClientContainer,
+  ClientContainerList,
+  CategoryProductContainer,
+  StoreContainer,
+  ShoppingContainer
+} from "./containers";
+import { NotFound, CreateProduct, ListProductAdmin } from "./components";
 import { NavBar } from "./components";
+import { CreateClient } from "./components/Clients/Create-Client";
 
 // import './styles/main.scss'
 
 export const App = () => (
   // <HomeContainer/>
   <>
-  <NavBar />
-  <HashRouter>
-    <Switch>
-      <Route exact path="/" component={HomeContainer} />
-      <Route exact path="/product/create/" component={CreateProduct} />
-      <Route component={NotFound} />
-    </Switch>
-  </HashRouter>
+    <HashRouter>
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={HomeContainer} />
+        <Route exact path="/client" component={ClientContainerList} />
+        <Route exact path="/product/create/" component={CreateProduct} />
+        <Route exact path="/client/create/" component={CreateClientContainer} />
+        <Route exact path="/shopping" component={ShoppingContainer} />
+        <Route
+          exact
+          path="/category/products/:id"
+          component={CategoryProductContainer}
+        />
+        <Route exact path="/store/products/:id" component={StoreContainer} />
+        <Route exact path="/product" component={ListProductAdmin} />
+        <Route component={NotFound} />
+      </Switch>
+    </HashRouter>
   </>
 );

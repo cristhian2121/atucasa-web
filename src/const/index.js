@@ -1,2 +1,14 @@
-export const ADD_PRODUCT_TO_CAR = "ADD_PRODUCT_TO_CAR"
-export const REMOVE_PRODUCT_TO_CAR = "REMOVE_PRODUCT_TO_CAR"
+export const ADD_PRODUCT_TO_CAR = "ADD_PRODUCT_TO_CAR";
+export const REMOVE_PRODUCT_TO_CAR = "REMOVE_PRODUCT_TO_CAR";
+export const REMOVE_CLIENT = "REMOVE_CLIENT";
+export const UPDATE_CLIENT = "UPDATE_CLIENT";
+export const GET_CLIENTS = "GET_CLIENTS";
+export const ERROR = "ERROR";
+export const LOADER = "LOADER";
+export const SESION_VALIDATE = "SESION_VALIDATE";
+export const SET_SESION = "SET_SESION";
+export const CLEAR_SESION = "CLEAR_SESION";
+export const GET_USER = "GET_USER";
+export const CLEAR_USER = "CLEAR_USER";
+export const SAVE_USER = "SAVE_USER";
+export const KEY_SESSION = "KEY_SESSION";
