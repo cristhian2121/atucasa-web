@@ -13,15 +13,13 @@ export const authReducer = (state = initialState, action) => {
         ...state,
       };
     case CLEAR_USER:
-      window.sessionStorage.setItem(KEY_SESSION, undefined);
       state.user = undefined;
+      window.sessionStorage.removeItem(KEY_SESSION);
       return {
         ...state,
       };
     case SAVE_USER:
-      window.sessionStorage.removeItem(
-        KEY_SESSION
-      );
+      window.sessionStorage.setItem(KEY_SESSION, JSON.stringify(action.payload));
       state.user = action.payload;
       return {
         ...state,

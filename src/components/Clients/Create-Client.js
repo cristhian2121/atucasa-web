@@ -58,6 +58,7 @@ export const CreateClient = (
     try {
       let response = await getGroupsService()
       let resp = response.data
+      resp = resp.filter(_ => _.name != 'admin')
       // upload options for field permissions
       setPermissions(resp)
     } catch (e) { console.log('error create product', e) }

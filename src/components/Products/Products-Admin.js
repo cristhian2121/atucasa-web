@@ -3,29 +3,27 @@ import React, { useState, useEffect } from "react";
 import { TableGeneric, ConfirmModal, Loader } from "../Commons";
 import { TITLECONFIRMDELETE, TEXTCONFIRMDELETE } from "../../mocks";
 
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 import {
   GetProductStoreService,
   deleteProductService,
-  updateProductService} from "../../services";
+  updateProductService,
+} from "../../services";
 
-import { DetailProduct } from "./Detail-Product"
+import { DetailProduct } from "./Detail-Product";
+import { connect } from "react-redux";
 
-export const ListProductAdmin = (props) => {
-  console.log("props: ", props);
-  const { clients } = props;
+const ListProductAdminComponent = (props) => {
+  const { clients, user } = props;
   const [products_, setProducts_] = useState(clients);
   const [loader, setLoader] = useState(false);
   const [openModal, setopenModal] = useState(false);
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [productSelected, setProductSelected] = useState({});
-  const store = window.localStorage
-    ? window.localStorage.getItem("store")
-    : null;
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, [clients]);
 
   const state = {
@@ -52,15 +50,16 @@ export const ListProductAdmin = (props) => {
     let dataProducts;
     let response;
     try {
-      response = await GetProductStoreService(store);
+      response = await GetProductStoreService(user.store);
       dataProducts = response.data;
+    } catch (e) {
+      console.log("error getproducts: ", e);
     }
-    catch (e) {console.log('error getproducts: ', e);}
     if (response && response.status) {
       setProducts_(dataProducts);
       setLoader(true);
-    };
-  }
+    }
+  };
 
   const handleChangePage = (forward) => {
     // this.props.changePage(forward)
@@ -100,18 +99,22 @@ export const ListProductAdmin = (props) => {
     let response;
     let id = productSelected.id;
     try {
-      response = await deleteProductService(id)
+      response = await deleteProductService(id);
     } catch (error) {
-      enqueueSnackbar('No se pudo eliminar el registro, vuelva a intentarlo.', { variant: 'error' })
+      enqueueSnackbar("No se pudo eliminar el registro, vuelva a intentarlo.", {
+        variant: "error",
+      });
     }
     if (response && response.status) {
-      enqueueSnackbar('El registro se eliminó correctamente.', { variant: 'success' });
-      _deleteProduct(id)
+      enqueueSnackbar("El registro se eliminó correctamente.", {
+        variant: "success",
+      });
+      _deleteProduct(id);
     }
-  }
+  };
 
   const _deleteProduct = (id) => {
-    let products_tmp = products_.filter(obj => obj.id!=id);
+    let products_tmp = products_.filter((obj) => obj.id != id);
     setProducts_(products_tmp);
     setOpenConfirm(false);
   };
@@ -129,7 +132,7 @@ export const ListProductAdmin = (props) => {
   // Star client
   const handleStarClient = (product) => {
     product.star = !product.star;
-    updateProduct(product)
+    updateProduct(product);
   };
 
   const updateProduct = async (product) => {
@@ -139,16 +142,21 @@ export const ListProductAdmin = (props) => {
       response = await updateProductService(product.id, product);
       dataUpdate = response.data;
     } catch (error) {
-      enqueueSnackbar('No se pudo actualizar el registro, vuelva a intentarlo.', { variant: 'error' });
-    };
+      enqueueSnackbar(
+        "No se pudo actualizar el registro, vuelva a intentarlo.",
+        { variant: "error" }
+      );
+    }
     if (response && response.status) {
-      enqueueSnackbar('El registro se actualizó correctamente.', { variant: 'success' });
+      enqueueSnackbar("El registro se actualizó correctamente.", {
+        variant: "success",
+      });
       _updateProduct(product);
-    };
+    }
   };
 
   const _updateProduct = (dataProduct) => {
-    let products_tmp = products_.filter(obj => obj.id!=dataProduct.id);
+    let products_tmp = products_.filter((obj) => obj.id != dataProduct.id);
     let products = [...products_tmp, dataProduct];
     setProducts_(products);
   };
@@ -197,3 +205,9 @@ export const ListProductAdmin = (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (reducers) => {
+  return reducers.authReducer;
+};
+
+export const ListProductAdmin = connect(mapStateToProps, null)(ListProductAdminComponent);
